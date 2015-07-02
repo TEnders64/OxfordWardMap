@@ -214,8 +214,7 @@
 						.text(function(d){return d.properties.NAME})
 						.attr("x",function(d,i){return xScale(i) + barpad + padding + 2;})
 						.attr("y",(heightbar-padding-5))
-						.style("fill","white")
-						.attr("transform","rotate(-90)");
+						.style("fill","white");
 						
 						svgbar.append("g")
 							.attr("class","axis")
