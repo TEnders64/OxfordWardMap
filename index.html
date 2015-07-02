@@ -153,8 +153,6 @@
 						  .on("click", clicked);
 						  
 						var yScale = d3.scale.linear()
-									   .domain(0,d3.max(OXzones.features.properties.MEANUrban))
-									   .range(0,heightbar);
 									   .domain([0,d3.max(meanUrban)])
 									   .range([0,heightbar]);
 						  
