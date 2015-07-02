@@ -110,6 +110,8 @@
 						
 			var g = svgmap.append("g");
 			
+			var padding = 20;
+			
 			// load and display the Oxford Roads, then Buildings, then Wards (SVG Ordering)
 			d3.json("OX_roads.geojson", function(error, OXroads) {
 				if(error){console.log(error);}
@@ -185,7 +187,7 @@
 						.data(OXzones.features)
 						.enter()
 						.append("rect")
-						.attr("x", function(d,i){return i*(widthbar/OXzones.features.length) + barpad;})
+						.attr("x", function(d,i){return i*(widthbar/OXzones.features.length) + barpad + padding;})
 						.attr("y", function(d){return heightbar-(yScale(d.properties.MEANUrban));})
 						.attr("y", function(d){return heightbar-(yScale(d.properties.MEANUrban));})
 						.attr("width", function(d){return (widthbar/OXzones.features.length) - barpad;})
