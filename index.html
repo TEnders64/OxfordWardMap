@@ -208,13 +208,13 @@
 						.attr("stroke","black");
 						
 						svgbar.selectAll("text")
-						.data(OXzones.features)
-						.enter()
-						.append("text")
-						.text(function(d){return d.properties.NAME})
-						.attr("x",function(d,i){return xScale(i) + barpad + padding + 2;})
-						.attr("y",(heightbar-padding-5))
-						.style("fill","white");
+							.data(OXzones.features)
+							.enter()
+							.append("text")
+							.text(function(d){return d.properties.NAME})
+							.attr("transform","rotate(-90)")
+							.attr("transform","translate("+function(d,i){return xScale(i) + barpad + padding + 2;}+","+heighbar-padding-5+")")
+							.style("fill","white");
 						
 						svgbar.append("g")
 							.attr("class","axis")
