@@ -137,7 +137,6 @@
 				d3.json("OX_buildings.geojson", function(error, OXbuildings) {
 					if(error){console.log(error);}
 
-					//var g = svgmap.append("g").attr("class","buildings");
 					g.append("g")
 					.attr("class","buildings")							
 					.selectAll("path")
@@ -155,7 +154,6 @@
 						})
 						var meanUrban = [];
 						for(var i=0;i<OXzones.features.length;i++){
-						console.log(OXzones.features[i].properties.MEANUrban);
 							meanUrban.push(OXzones.features[i].properties.MEANUrban);
 						}						
 						//apply color function to the domain of mean temp data
@@ -212,8 +210,7 @@
 							.enter()
 							.append("text")
 							.text(function(d){return d.properties.NAME})
-							.attr("transform","rotate(-90)")
-							.attr("transform","translate("+(function(d,i){return xScale(i) + barpad + padding + 2;})+" "+(heightbar-padding-5)+")")
+							.attr("transform","rotate(-90 "+function(d,i){return xScale(i) + barpad + padding + 1;}+" "+(heightbar-padding-5)+")")
 							.style("fill","white");
 						
 						svgbar.append("g")
