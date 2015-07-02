@@ -181,11 +181,11 @@
 						  
 						var yScale = d3.scale.linear()
 									   .domain([0,d3.max(meanUrban)])
-									   .range([heightbar,0]);
+									   .range([heightbar-padding,padding]);
 									   
 						var xScale = d3.scale.linear()
 									   .domain([1,24])
-									   .range([padding,widthbar-padding]);
+									   .range([padding,widthbar-padding+barpad]);
 						
 						var yAxis = d3.svg.axis()
 									  .scale(yScale)
