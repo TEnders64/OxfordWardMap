@@ -232,8 +232,8 @@
 				  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
 			}	
 
-			$(document).ready(function(){
-				$('[data-toggle="popover"]').popover({title:"test test", content:"I'm content!", container:"body"});
+			$(function(){
+				$('[data-toggle="popover"]').popover({title:"test test", content:"I'm content!", container:"body", trigger:"focus"});
 			});
 		</script>
 	</body>
