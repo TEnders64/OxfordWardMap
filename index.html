@@ -185,7 +185,7 @@
 									   
 						var xScale = d3.scale.linear()
 									   .domain([1,24])
-									   .range([padding,widthbar-padding-barpad]);
+									   .range([padding,widthbar]);
 						
 						var yAxis = d3.svg.axis()
 									  .scale(yScale)
@@ -217,7 +217,8 @@
 							.call(xAxis)
 							.attr("transform","translate(0,"+(heightbar-padding)+")")
 							.append("text")
-							.style("text-anchor", "center")
+							.style("text-anchor", "middle")
+							.attr("y",heightbar+6)
 							.text("Wards");
 					});
 					
