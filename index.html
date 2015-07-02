@@ -165,7 +165,7 @@
 						.enter()
 						.append("rect")
 						.attr("x", function(d,i){return i*(widthbar/OXzones.features.length) + barpad;})
-						.attr("y", function(d){return heightbar-(yScale(d.properties.MEANUrban));}
+						.attr("y", function(d){return heightbar-(yScale(d.properties.MEANUrban));})
 						.attr("width", function(d){return (widthbar/OXzones.features.length) - barpad;})
 						.attr("height", function(d,i){return yScale(d.properties.MEANUrban);})
 						.attr("fill", function(d){return color(d.properties.MEANUrban);})
