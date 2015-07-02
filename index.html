@@ -85,7 +85,8 @@
 			var height = 500;
 			var widthbar = 523;
 			var heightbar = 350;
-			var barpad = 2;
+			var margin = {top:20, right:20, bottom: 20, left: 30};
+			var barpad = 1;
 			var centered;
 			
 			var color = d3.scale
@@ -105,8 +106,10 @@
 						.attr("height", height);
 			
 			var svgbar = d3.select("#bar").append("svg")
-						.attr("width", widthbar)
-						.attr("height", heightbar);
+						.attr("width", widthbar - margin.left - margin.right)
+						.attr("height", heightbar - margin.top - margin.bottom)
+						.append("g")
+						.attr("transform","translate("+margin.left+","+margin.top");
 						
 			var g = svgmap.append("g");
 			
