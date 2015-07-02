@@ -168,6 +168,10 @@
 						  .enter()
 						  .append("path")
 						  .attr("d", path)
+						  .attr("data-toggle","popover")
+						  .attr("title",function(d){return d.properties.NAME;})
+						  .attr("data-content",function(d){return "Mean surface temperature: "+d.properties.MEANTemp
+						  +"\nMean relative temperature: "+d.properties.MEANUrban;})
 						  .attr("stroke","black")
 						  .attr("stroke-width","2")
 						  .attr("opacity","0.75")
@@ -177,7 +181,7 @@
 						  
 						var yScale = d3.scale.linear()
 									   .domain([0,d3.max(meanUrban)])
-									   .range([0,heightbar]);
+									   .range([heightbar,0]);
 						
 						var yAxis = d3.svg.axis()
 									  .scale(yScale)
@@ -226,7 +230,11 @@
 			  g.transition()
 				  .duration(750)
 				  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
-			}					
+			}	
+
+			$(document).ready(function(){
+				$('[data-toggle="popover"]').popover();
+			});
 		</script>
 	</body>
 </html>
