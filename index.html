@@ -132,13 +132,16 @@
 					d3.json("Jun_6_2013_OX_Boroughs.geojson", function(error, OXzones) {
 						console.log(OXzones);
 						console.log(OXzones.features);
+						OXzones.features.sort(function(a,b) {
+							return (b.properties.MEANUrban - a.properties.MEANUrban);
+						})
 						var meanUrban = [];
 						for(var i=0;i<OXzones.features.length;i++){
 						console.log(OXzones.features[i].properties.MEANUrban);
 							meanUrban.push(OXzones.features[i].properties.MEANUrban);
 						}
 						
-						//invert the Red to Blue color scale
+						//apply color function to the domain of mean temp data
 						color.domain([d3.min(meanUrban),d3.max(meanUrban)]);						  
 						
 						//var g = svgmap.append("g").attr("class","wards");
