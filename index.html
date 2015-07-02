@@ -185,7 +185,7 @@
 									   
 						var xScale = d3.scale.linear()
 									   .domain([1,24])
-									   .range([padding,widthbar-padding+barpad]);
+									   .range([padding,widthbar-padding-barpad]);
 						
 						var yAxis = d3.svg.axis()
 									  .scale(yScale)
@@ -207,11 +207,11 @@
 						.attr("fill", function(d){return color(d.properties.MEANUrban);})
 						.attr("stroke","black")
 						.append("text")
+						.text(function(d){return d.properties.NAME})
 						.attr("transform","rotate(-90)")
 						.attr("x",function(d,i){return xScale(i) + barpad + padding + 2;})
 						.attr("y",(heightbar-padding-5))
-						.style("fill","white")
-						.text(function(d){return d.properties.NAME});
+						.style("fill","white");
 						
 						svgbar.append("g")
 							.attr("class","axis")
@@ -223,9 +223,9 @@
 							.call(xAxis)
 							.attr("transform","translate(0,"+(heightbar-padding)+")")
 							.append("text")
+							.text("WARDS")
 							.style("text-anchor", "middle")
-							.attr("y",heightbar+6)
-							.text("Wards");
+							.attr("y", heightbar+6);
 					});
 					
 				});
