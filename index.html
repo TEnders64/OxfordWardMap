@@ -157,7 +157,7 @@
 						  .on("click", clicked);
 						  
 						var yScale = d3.scale.linear()
-									   .domain(0,d3.max(OXzones.features.properties.MEANUrban))
+									   .domain(0,d3.max(meanUrban))
 									   .range(0,heightbar);
 						  
 						svgbar.selectAll("rect")
