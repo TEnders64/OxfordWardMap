@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>	
 	<style>
+	
 		.jumbotron h1 {font-size: 18px;
 			font-weight: bold;
 			font-family: "Arial Narrow";
@@ -88,13 +89,9 @@
 						
 			var g = svgmap.append("g");
 			
-			//var gbar = svgbar.append("g");
-			
 			// load and display the Oxford Roads, then Buildings, then Wards (SVG Ordering)
 			d3.json("OX_roads.geojson", function(error, OXroads) {
 				if(error){console.log(error);}
-				
-				//var g = svgmap.append("g").attr("class","roads");						
 				
 				var majorRoads = [];
 				for (var i=0;i<OXroads.features.length;i++){
@@ -130,8 +127,6 @@
 					  
 					// load and display the layered Oxford Ward Information
 					d3.json("Jun_6_2013_OX_Boroughs.geojson", function(error, OXzones) {
-						console.log(OXzones);
-						console.log(OXzones.features);
 						OXzones.features.sort(function(a,b) {
 							return (b.properties.MEANUrban - a.properties.MEANUrban);
 						})
@@ -139,12 +134,10 @@
 						for(var i=0;i<OXzones.features.length;i++){
 						console.log(OXzones.features[i].properties.MEANUrban);
 							meanUrban.push(OXzones.features[i].properties.MEANUrban);
-						}
-						
+						}						
 						//apply color function to the domain of mean temp data
 						color.domain([d3.min(meanUrban),d3.max(meanUrban)]);						  
-						
-						//var g = svgmap.append("g").attr("class","wards");
+
 						g.append("g")
 						.attr("class","wards")								
 						.selectAll("path")
@@ -160,6 +153,8 @@
 						  .on("click", clicked);
 						  
 						var yScale = d3.scale.linear()
+									   .domain(0,d3.max(OXzones.features.properties.MEANUrban))
+									   .range(0,heightbar);
 									   .domain([0,d3.max(meanUrban)])
 									   .range([0,heightbar]);
 						  
@@ -168,6 +163,7 @@
 						.enter()
 						.append("rect")
 						.attr("x", function(d,i){return i*(widthbar/OXzones.features.length) + barpad;})
+						.attr("y", function(d){return heightbar-(yScale(d.properties.MEANUrban));}
 						.attr("y", function(d){return heightbar-(yScale(d.properties.MEANUrban));})
 						.attr("width", function(d){return (widthbar/OXzones.features.length) - barpad;})
 						.attr("height", function(d,i){return yScale(d.properties.MEANUrban);})
