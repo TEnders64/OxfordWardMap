@@ -212,10 +212,10 @@
 						.enter()
 						.append("text")
 						.text(function(d){return d.properties.NAME})
-						.attr("transform","rotate(-90)")
 						.attr("x",function(d,i){return xScale(i) + barpad + padding + 2;})
 						.attr("y",(heightbar-padding-5))
-						.style("fill","white");
+						.style("fill","white")
+						.attr("transform","rotate(-90)");
 						
 						svgbar.append("g")
 							.attr("class","axis")
