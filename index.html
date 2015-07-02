@@ -233,7 +233,8 @@
 			}
 			
 			$(function(){
-				$('[data-toggle="popover"]').popover('show');
+				$('[data-toggle="popover"]').popover({trigger:'click', container:'body', placement: 'top'});
+				console.log($'[data-toggle="popover"]');
 			});
 			
 		</script>
