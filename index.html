@@ -203,7 +203,10 @@
 							.attr("width", function(d,i){return (widthbar-padding-barpad)/OXzones.features.length;})
 							.attr("height", function(d){return heightbar - padding - yScale(d.properties.MEANUrban);})
 							.attr("fill", function(d){return color(d.properties.MEANUrban);})
-							.attr("stroke","black");
+							.attr("stroke","black")
+							.append("text")
+							.style("fill","black")
+							.text("TESTING!!!");
 						
 						svgbar.selectAll("g")
 							.data(OXzones.features)
@@ -223,8 +226,9 @@
 							.call(xAxis)
 							.attr("transform","translate(0,"+(heightbar-padding)+")")
 							.append("text")
-							.text("WARDS")
-							.style("text-anchor", "middle");
+							.style("text-anchor", "middle")
+							.attr("dy","5")
+							.text("WARDS");
 					});
 					
 				});
