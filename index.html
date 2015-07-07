@@ -195,22 +195,22 @@
 									  .ticks(0);
 						  
 						svgbar.selectAll("rect")
-						.data(OXzones.features)
-						.enter()
-						.append("rect")
-						.attr("x", function(d,i){return xScale(i) + barpad + padding;})
-						.attr("y", function(d){return yScale(d.properties.MEANUrban);})
-						.attr("width", function(d,i){return (widthbar-padding-barpad)/OXzones.features.length;})
-						.attr("height", function(d){return heightbar - padding - yScale(d.properties.MEANUrban);})
-						.attr("fill", function(d){return color(d.properties.MEANUrban);})
-						.attr("stroke","black");
-						
-						svgbar.selectAll("text")
 							.data(OXzones.features)
 							.enter()
-							.append("text")
-							.text(function(d){return d.properties.NAME})
+							.append("rect")
+							.attr("x", function(d,i){return xScale(i) + barpad + padding;})
+							.attr("y", function(d){return yScale(d.properties.MEANUrban);})
+							.attr("width", function(d,i){return (widthbar-padding-barpad)/OXzones.features.length;})
+							.attr("height", function(d){return heightbar - padding - yScale(d.properties.MEANUrban);})
+							.attr("fill", function(d){return color(d.properties.MEANUrban);})
+							.attr("stroke","black");
+						
+						svgbar.selectAll("g")
+							.data(OXzones.features)
+							.enter()
 							.attr("transform","rotate(-90 "+function(d,i){return xScale(i) + barpad + padding + 1;}+" "+(heightbar-padding-5)+")")
+							.append("text")
+							.text(function(d){return d.properties.NAME})							
 							.style("fill","white");
 						
 						svgbar.append("g")
