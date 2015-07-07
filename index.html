@@ -209,7 +209,6 @@
 							.data(OXzones.features)
 							.enter()
 							.append("g")
-							.attr("transform","rotate(-90 "+(function(d,i){return xScale(i) + barpad + padding + 1;})+" "+(heightbar-padding-5)+")")
 							.append("text")
 							.text(function(d){return d.properties.NAME})							
 							.style("fill","white");
@@ -225,8 +224,7 @@
 							.attr("transform","translate(0,"+(heightbar-padding)+")")
 							.append("text")
 							.text("WARDS")
-							.style("text-anchor", "middle")
-							.attr("y", heightbar+6);
+							.style("text-anchor", "middle");
 					});
 					
 				});
