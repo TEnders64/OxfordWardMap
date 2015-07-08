@@ -211,7 +211,7 @@
 							.append("text")
 							.attr("dx", function(d,i){return xScale(i) + barpad + padding + 2;})
 							.attr("dy", heightbar-padding-3)
-							.attr("transform","rotate(-90 "+(this).dx+" "+(this).dy+")")
+							.attr("transform","rotate(-90 "+function(d,i){return xScale(i) + barpad + padding + 2}+" "+(heightbar-padding-3)+")")
 							.text(function(d){return d.properties.NAME})							
 							.style("fill","white");
 						
