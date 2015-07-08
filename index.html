@@ -63,7 +63,11 @@
 			stroke: white;
 		}
 		
-		
+		text {
+			fill: black;
+			font-weight: bold;
+			stroke: black;			
+		}
 		
 	</style>
 	</head>
@@ -221,7 +225,7 @@
 							.append("rect")
 							.attr("x", function(d,i){return xScale(i) + barpad;})
 							.attr("y", function(d){return yScale(d.properties.MEANUrban);})
-							.attr("width", function(d,i){return (widthbar-padding-barpad)/(OXzones.features.length+1);})
+							.attr("width", function(d,i){return (widthbar-2*padding)/(OXzones.features.length+1);})
 							.attr("height", function(d){return heightbar - padding - yScale(d.properties.MEANUrban);})
 							.attr("fill", function(d){return color(d.properties.MEANUrban);})
 							.attr("stroke","black");							
@@ -234,9 +238,7 @@
 							.attr("dy", heightbar-padding-3)
 							.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i) + barpad + padding - 4)+", "+(heightbar-padding-3)+")";})
 							.text(function(d){return d.properties.NAME.slice(0,d.properties.NAME.length-5);})
-							.style("font-size",12)
-							.style("fill","blue")
-							.style("stroke","black");
+							.style("font-size",12);
 						
 						svgbar.append("g")
 							.attr("class","axis")
