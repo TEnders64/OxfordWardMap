@@ -94,10 +94,10 @@
 		
 			var width = 537;
 			var height = 500;
-			var margin = {top: 20,
-						  right: 25,
+			var margin = {top: 10,
+						  right: 20,
 						  bottom: 30,
-						  left: 35};
+						  left: 30};
 			var widthbar = 533 - margin.left - margin.right;
 			var heightbar = 350;
 			var barpad = 1;
@@ -195,11 +195,11 @@
 						  
 						var yScale = d3.scale.linear()
 									   .domain([0,d3.max(meanUrban)])
-									   .range([heightbar-padding,padding]);
+									   .range([heightbar,0]);
 									   
 						var xScale = d3.scale.linear()
 									   .domain([0,24])
-									   .range([padding,widthbar-padding]);
+									   .range([0,widthbar]);
 						
 						var yAxis = d3.svg.axis()
 									  .scale(yScale)
