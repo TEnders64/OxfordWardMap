@@ -45,28 +45,10 @@
 			font-size: 11px;
 		}
 		
-		text:nth-child(1) {
-			fill: white;
-			font-weight: bold;
-			stroke: white;
-		}
-		
-		text:nth-child(2) {
-			fill: white;
-			font-weight: bold;
-			stroke: white;
-		}
-		
-		text:nth-child(3) {
-			fill: white;
-			font-weight: bold;
-			stroke: white;
-		}
-		
 		text {
 			fill: black;
 			font-weight: bold;
-			stroke: black;			
+			font-family: arial;			
 		}
 		
 	</style>
@@ -223,7 +205,7 @@
 							.data(OXzones.features)
 							.enter()
 							.append("rect")
-							.attr("x", function(d,i){return xScale(i) + barpad;})
+							.attr("x", function(d,i){return xScale(i);})
 							.attr("y", function(d){return yScale(d.properties.MEANUrban);})
 							.attr("width", function(d,i){return (widthbar-2*padding)/(OXzones.features.length+1);})
 							.attr("height", function(d){return heightbar - padding - yScale(d.properties.MEANUrban);})
@@ -234,7 +216,7 @@
 							.data(OXzones.features)
 							.enter()
 							.append("text")
-							.attr("dx", function(d,i){return xScale(i) + barpad + padding - 4;})
+							.attr("dx", function(d,i){return xScale(i) + barpad + padding - 5;})
 							.attr("dy", heightbar-padding-3)
 							.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i) + barpad + padding - 4)+", "+(heightbar-padding-3)+")";})
 							.text(function(d){return d.properties.NAME.slice(0,d.properties.NAME.length-5);})
