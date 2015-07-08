@@ -30,8 +30,8 @@
 		}
 		
 		#bar {
-			left-margin: 5px;
-			right-margin: 5px;
+			padding-left: 5px;
+			padding-right: 5px;
 		}
 		
 		#bar svg {
@@ -94,7 +94,7 @@
 		
 			var width = 537;
 			var height = 500;
-			var widthbar = 523;
+			var widthbar = $("#bar").width - (2*$("#bar").padding-left);
 			var heightbar = 350;
 			var barpad = 1;
 			var centered;
