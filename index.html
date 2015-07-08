@@ -205,10 +205,12 @@
 							.attr("fill", function(d){return color(d.properties.MEANUrban);})
 							.attr("stroke","black");							
 						
-						var xCoords = [];
-						for (var i = 0; i < OXzones.features.length; i++){
-							xCoords.push(xScale(i) + barpad + padding + 2);
-						}
+						//var xCoords = [];
+						//for (var i = 0; i < OXzones.features.length; i++){
+						//	xCoords.push(xScale(i) + barpad + padding + 2);
+						//}
+						
+						// .attr("transform","translate(x, y)")
 						
 						svgbar.selectAll("text")
 							.data(OXzones.features)
@@ -217,7 +219,7 @@
 							.attr("dx", function(d,i){return xScale(i) + barpad + padding + 2;})
 							.attr("dy", heightbar-padding-3)
 							.attr("transform","rotate(-90)")
-							.attr("transform", function(d,i){return "translate("+(xScale(i) + barpad + padding + 2)+", "+(heightbar-padding-3)")";})
+							.attr("transform", function(d,i){return "translate("+(xScale(i) + barpad + padding + 2)+", "+(heightbar-padding-3)+")";})
 							.text(function(d){return d.properties.NAME})							
 							.style("fill","white");
 						
