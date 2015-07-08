@@ -216,10 +216,9 @@
 							.append("rect")
 							.attr("x", function(d,i){return xScale(i);})
 							.attr("y", function(d){return yScale(d.properties.MEANUrban);})
-							.attr("width", function(d,i){return (widthbar-2*padding)/(OXzones.features.length+1);})
-							.attr("height", function(d){return heightbar - padding - yScale(d.properties.MEANUrban);})
-							.attr("fill", function(d){return color(d.properties.MEANUrban);})
-							.attr("stroke","black");							
+							.attr("width", function(d,i){return (widthbar)/(OXzones.features.length+1);})
+							.attr("height", function(d){return heightbar - yScale(d.properties.MEANUrban);})
+							.attr("fill", function(d){return color(d.properties.MEANUrban);});							
 						
 						svgbar.selectAll("text")
 							.data(OXzones.features)
