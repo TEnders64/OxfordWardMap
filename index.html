@@ -116,7 +116,7 @@
 						
 			var g = svgmap.append("g");
 			
-			var padding = 20;
+			var padding = 15;
 			
 			// load and display the Oxford Roads, then Buildings, then Wards (SVG Ordering)
 			d3.json("OX_roads.geojson", function(error, OXroads) {
@@ -188,7 +188,7 @@
 									   .range([heightbar-padding,padding]);
 									   
 						var xScale = d3.scale.linear()
-									   .domain([0,24])
+									   .domain([0,25])
 									   .range([padding,widthbar-padding]);
 						
 						var yAxis = d3.svg.axis()
