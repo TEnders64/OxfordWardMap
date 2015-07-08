@@ -188,13 +188,12 @@
 									   .range([heightbar-padding,padding]);
 									   
 						var xScale = d3.scale.linear()
-									   .domain([0,23])
+									   .domain([0,24])
 									   .range([padding,widthbar-padding]);
 						
 						var yAxis = d3.svg.axis()
 									  .scale(yScale)
-									  .orient("left")
-									  .ticks(10);
+									  .orient("left");
 									  
 						var xAxis = d3.svg.axis()
 									  .scale(xScale)
@@ -227,11 +226,11 @@
 							.call(yAxis)
 							.attr("transform","translate("+padding+",0)")
 							.append("text")
-							.style("font-size",12)
+							.style("font-size",10)
 							.style("text-anchor","middle")
 							.attr("dy",heightbar/2)
-							.attr("dx",padding/4)
-							.attr("transform","rotate(-90 "+(padding/4)+" "+(heightbar/2)+")")
+							.attr("dx",5)
+							.attr("transform","rotate(-90 5 "+(heightbar/2)+")")
 							.text("Degrees greater than baseline temp");
 							
 						svgbar.append("g")
