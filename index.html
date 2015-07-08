@@ -205,13 +205,18 @@
 							.attr("fill", function(d){return color(d.properties.MEANUrban);})
 							.attr("stroke","black");							
 						
+						var xCoords = [];
+						for (var i = 0; i < OXzones.features.length; i++){
+							xCoords.push(xScale(i) + barpad + padding + 2);
+						}
+						
 						svgbar.selectAll("text")
 							.data(OXzones.features)
 							.enter()
 							.append("text")
 							.attr("dx", function(d,i){return xScale(i) + barpad + padding + 2;})
 							.attr("dy", heightbar-padding-3)
-							.attr("transform","rotate(-90) translate("+function(d,i){return xScale(i) + barpad + padding + 2;}+", "+(heightbar-padding-3)+")")
+							.attr("transform","rotate(-90) translate("+function(i){return xCoords[i]}+", "+(heightbar-padding-3)+")")
 							.text(function(d){return d.properties.NAME})							
 							.style("fill","white");
 						
