@@ -226,7 +226,7 @@
 							.append("text")
 							.attr("dx", function(d,i){return xScale(i)+(widthbar)/(OXzones.features.length+1);})
 							.attr("dy", heightbar-4)
-							.attr("transform", function(d,i){return "rotate(-90 "+xScale(i)+(widthbar)/(OXzones.features.length+1)+", "+(heightbar-4)+")";})
+							.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i)+(widthbar)/(OXzones.features.length+1))+", "+(heightbar-4)+")";})
 							.text(function(d){return d.properties.NAME.slice(0,d.properties.NAME.length-5);})
 							.style("font-size",12);
 						
