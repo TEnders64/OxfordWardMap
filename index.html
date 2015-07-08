@@ -216,11 +216,12 @@
 							.data(OXzones.features)
 							.enter()
 							.append("text")
-							.attr("dx", function(d,i){return xScale(i) + barpad + padding + 2;})
+							.attr("dx", function(d,i){return xScale(i) + barpad + padding + 5;})
 							.attr("dy", heightbar-padding-3)
-							.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i) + barpad + padding + 2)+", "+(heightbar-padding-3)+")";})
+							.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i) + barpad + padding + 5)+", "+(heightbar-padding-3)+")";})
 							.text(function(d){return d.properties.NAME})							
-							.style("fill","white");
+							.style("fill","black")
+							.style("stroke","white");
 						
 						svgbar.append("g")
 							.attr("class","axis")
