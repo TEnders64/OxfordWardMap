@@ -205,20 +205,13 @@
 							.attr("fill", function(d){return color(d.properties.MEANUrban);})
 							.attr("stroke","black");							
 						
-						//var xCoords = [];
-						//for (var i = 0; i < OXzones.features.length; i++){
-						//	xCoords.push(xScale(i) + barpad + padding + 2);
-						//}
-						
-						// .attr("transform","translate(x, y)")
-						
 						svgbar.selectAll("text")
 							.data(OXzones.features)
 							.enter()
 							.append("text")
-							.attr("dx", function(d,i){return xScale(i+1) + barpad + padding;})
+							.attr("dx", function(d,i){return xScale(i+1) + barpad + padding - 3;})
 							.attr("dy", heightbar-padding-3)
-							.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i+1) + barpad + padding)+", "+(heightbar-padding-3)+")";})
+							.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i+1) + barpad + padding - 3)+", "+(heightbar-padding-3)+")";})
 							.text(function(d){return d.properties.NAME})							
 							.style("fill","white")
 							.style("stroke","black");
@@ -233,8 +226,10 @@
 							.call(xAxis)
 							.attr("transform","translate(0,"+(heightbar-padding)+")")
 							.append("text")
-							.style("text-anchor", "middle")
-							.attr("dy","5")
+							.style("font-family","sans-serif")
+							.style("font-weight","bold")
+							.attr("dx",widthbar/2)
+							.attr("dy","10")
 							.text("WARDS");
 					});
 					
