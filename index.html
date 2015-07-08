@@ -229,8 +229,8 @@
 							.style("font-size",10)
 							.style("text-anchor","middle")
 							.attr("dy",heightbar/2)
-							.attr("dx",5)
-							.attr("transform","rotate(-90 5 "+(heightbar/2)+")")
+							.attr("dx",-20)
+							.attr("transform","rotate(-90 0 "+(heightbar/2)+")")
 							.text("Degrees greater than baseline temp");
 							
 						svgbar.append("g")
@@ -238,6 +238,7 @@
 							.attr("transform","translate(0,"+(heightbar-padding)+")")
 							.style("font-weight","bold")
 							.style("font-size",16)
+							.style("text-anchor","middle")
 							.attr("dx",widthbar/2)
 							.attr("dy","18")
 							.text("WARDS");
