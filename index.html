@@ -215,9 +215,9 @@
 							.data(OXzones.features)
 							.enter()
 							.append("text")
-							.attr("dx", function(d,i){return xScale(i) + padding - 5;})
+							.attr("dx", function(d,i){return xScale(i) + padding - 8;})
 							.attr("dy", heightbar-padding-4)
-							.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i) + padding - 5)+", "+(heightbar-padding-4)+")";})
+							.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i) + padding - 8)+", "+(heightbar-padding-4)+")";})
 							.text(function(d){return d.properties.NAME.slice(0,d.properties.NAME.length-5);})
 							.style("font-size",12);
 						
@@ -228,9 +228,9 @@
 							.append("text")
 							.style("font-size",10)
 							.style("text-anchor","middle")
-							.attr("x",0)
+							.attr("x",-18)
 							.attr("y",heightbar/2)							
-							.attr("transform","rotate(-90 0 "+(heightbar/2)+")")
+							.attr("transform","rotate(-90 -18 "+(heightbar/2)+")")
 							.text("Degrees greater than baseline temp");
 							
 						svgbar.append("g")
