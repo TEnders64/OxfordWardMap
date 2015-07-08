@@ -198,7 +198,7 @@
 							.data(OXzones.features)
 							.enter()
 							.append("rect")
-							.attr("x", function(d,i){return xScale(i) + barpad + padding;})
+							.attr("x", function(d,i){return xScale(i) + barpad;})
 							.attr("y", function(d){return yScale(d.properties.MEANUrban);})
 							.attr("width", function(d,i){return (widthbar-padding-barpad)/OXzones.features.length;})
 							.attr("height", function(d){return heightbar - padding - yScale(d.properties.MEANUrban);})
