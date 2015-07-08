@@ -45,6 +45,26 @@
 			font-size: 11px;
 		}
 		
+		text:nth-child(1) {
+			fill: white;
+			font-weight: bold;
+			stroke: white;
+		}
+		
+		text:nth-child(2) {
+			fill: white;
+			font-weight: bold;
+			stroke: white;
+		}
+		
+		text:nth-child(3) {
+			fill: white;
+			font-weight: bold;
+			stroke: white;
+		}
+		
+		
+		
 	</style>
 	</head>
 	<body>
@@ -187,7 +207,8 @@
 						
 						var yAxis = d3.svg.axis()
 									  .scale(yScale)
-									  .orient("left");
+									  .orient("left")
+									  .ticks(10);
 									  
 						var xAxis = d3.svg.axis()
 									  .scale(xScale)
@@ -200,7 +221,7 @@
 							.append("rect")
 							.attr("x", function(d,i){return xScale(i) + barpad;})
 							.attr("y", function(d){return yScale(d.properties.MEANUrban);})
-							.attr("width", function(d,i){return (widthbar-padding-barpad)/OXzones.features.length;})
+							.attr("width", function(d,i){return (widthbar-padding-barpad)/(OXzones.features.length+1);})
 							.attr("height", function(d){return heightbar - padding - yScale(d.properties.MEANUrban);})
 							.attr("fill", function(d){return color(d.properties.MEANUrban);})
 							.attr("stroke","black");							
@@ -220,18 +241,22 @@
 						svgbar.append("g")
 							.attr("class","axis")
 							.call(yAxis)
-							.attr("transform","translate("+padding+",0)");
+							.attr("transform","translate("+padding+",0)")
+							.append("text")
+							.style("font-size",12)
+							.attr("dy",heightbar/2)
+							.attr("transform","rotate(-90 "+(padding/4)+" "+(heightbar/2)+")")
+							.text("Degrees greater than baseline");
 							
 						svgbar.append("g")
 							.attr("class","axis")
 							.call(xAxis)
 							.attr("transform","translate(0,"+(heightbar-padding)+")")
 							.append("text")
-							.style("font-family","sans-serif")
 							.style("font-weight","bold")
 							.style("font-size",16)
 							.attr("dx",widthbar/2)
-							.attr("dy","15")
+							.attr("dy","18")
 							.text("WARDS");
 					});
 					
