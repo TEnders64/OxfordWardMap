@@ -94,10 +94,15 @@
 		
 			var width = 537;
 			var height = 500;
+			var margin = {top: 20,
+						  right: 25,
+						  bottom: 30,
+						  left: 35};
 			var widthbar = 533 - margin.left - margin.right;
 			var heightbar = 350;
 			var barpad = 1;
 			var centered;
+			var padding = 25;
 			
 			var color = d3.scale
 						  .quantize()
@@ -116,18 +121,13 @@
 						.attr("height", height);
 			
 			var svgbar = d3.select("#bar").append("svg")
-						.attr("width", widthbar)
-						.attr("height", heightbar);
+						.attr("width", widthbar + margin.left + margin.right)
+						.attr("height", heightbar)
+						.append("g")
+						.attr("transform", "translate("+margin.left+","+margin.top+")");
 						
 			var g = svgmap.append("g");
-			
-			var padding = 25;
-			
-			var margin = {top: 20,
-						  right: 25,
-						  bottom: 30,
-						  left: 35}
-			
+					
 			// load and display the Oxford Roads, then Buildings, then Wards (SVG Ordering)
 			d3.json("OX_roads.geojson", function(error, OXroads) {
 				if(error){console.log(error);}
@@ -209,7 +209,7 @@
 									  .scale(xScale)
 									  .orient("bottom")
 									  .ticks(0);
-						  
+						
 						svgbar.selectAll("rect")
 							.data(OXzones.features)
 							.enter()
