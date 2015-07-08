@@ -94,7 +94,7 @@
 		
 			var width = 537;
 			var height = 500;
-			var widthbar = 535;
+			var widthbar = 533 - margin.left - margin.right;
 			var heightbar = 350;
 			var barpad = 1;
 			var centered;
@@ -122,6 +122,11 @@
 			var g = svgmap.append("g");
 			
 			var padding = 25;
+			
+			var margin = {top: 20,
+						  right: 25,
+						  bottom: 30,
+						  left: 35}
 			
 			// load and display the Oxford Roads, then Buildings, then Wards (SVG Ordering)
 			d3.json("OX_roads.geojson", function(error, OXroads) {
