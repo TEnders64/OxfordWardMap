@@ -96,7 +96,7 @@
 			var height = 500;
 			var margin = {top: 10,
 						  right: 20,
-						  bottom: 30,
+						  bottom: 20,
 						  left: 30};
 			var widthbar = 533 - margin.left - margin.right;
 			var heightbar = 350 - margin.top - margin.bottom;
@@ -234,7 +234,6 @@
 						svgbar.append("g")
 							.attr("class","axis")
 							.call(yAxis)
-							.attr("transform","translate("+padding+",0)")
 							.append("text")
 							.style("font-size",10)
 							.style("text-anchor","middle")
@@ -245,7 +244,7 @@
 							
 						svgbar.append("g")
 							.append("text")
-							.attr("transform","translate(0,"+(heightbar-padding)+")")
+							.attr("transform","translate(0,"+heightbar+")")
 							.style("font-weight","bold")
 							.style("font-size",16)
 							.style("text-anchor","middle")
