@@ -83,7 +83,7 @@
 					</div>
 					<div class="short-div">
 						<div class="panel panel-success">
-							<div class="panel-heading">Oxford Wards Comparison</div>
+							<div class="panel-heading">Oxford Wards Comparison - (&deg;C) warmer than coolest temps</div>
 							<div id="bar" class="panel-body"></div>
 						</div>
 					</div>
@@ -279,11 +279,12 @@
 							
 						svgbar.append("g")
 							.append("text")
+							.attr("transform","translate(0,"+heightbar+")")
 							.style("font-weight","bold")
 							.style("font-size",11)
 							.style("text-anchor","end")
-							.attr("x",-7)
-							.attr("y",7)							
+							.attr("dx",-7)
+							.attr("dy",7)							
 							.html("(&deg;C)");
 			
 					});
