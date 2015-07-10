@@ -222,7 +222,8 @@
 						//create the y-axis based on the y scale and orient left
 						var yAxis = d3.svg.axis()
 									  .scale(yScale)
-									  .orient("left");
+									  .orient("left")
+									  .ticks(10);
 						
 						//create the x-axis based on the x scale and orient bottom
 						var xAxis = d3.svg.axis()
@@ -284,7 +285,7 @@
 							.style("text-anchor","end")
 							.attr("x",-9)
 							.attr("dy",".32em")							
-							.text("&#176; C")
+							.text("&deg; C")
 			
 					});
 					
