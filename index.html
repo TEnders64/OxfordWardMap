@@ -222,8 +222,7 @@
 						//create the y-axis based on the y scale and orient left
 						var yAxis = d3.svg.axis()
 									  .scale(yScale)
-									  .orient("left")
-									  .ticks(15, "&#176;");
+									  .orient("left");
 						
 						//create the x-axis based on the x scale and orient bottom
 						var xAxis = d3.svg.axis()
@@ -261,7 +260,7 @@
 							.append("text")
 							.style("font-size",10)
 							.style("text-anchor","middle")
-							.attr("x",-15)
+							.attr("x",-20)
 							.attr("y",heightbar/2)							
 							.attr("transform","rotate(-90 -18 "+(heightbar/2)+")")
 							.text("Degrees greater than baseline temp");
@@ -274,8 +273,18 @@
 							.style("font-size",16)
 							.style("text-anchor","middle")
 							.attr("dx",widthbar/2)
-							.attr("dy","18")
+							.attr("dy",18)
 							.text("WARDS");
+							
+						svgbar.append("g")
+							.append("text")
+							.attr("transform","translate(0,"+heightbar+")")
+							.style("font-weight","bold")
+							.style("font-size",12)
+							.style("text-anchor","end")
+							.attr("x",-9)
+							.attr("dy",".32em")							
+							.text("&#176; C")
 			
 					});
 					
