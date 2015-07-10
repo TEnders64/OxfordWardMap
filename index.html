@@ -94,7 +94,7 @@
 		
 			var width = 537;
 			var height = 500;
-			var margin = {top: 10,
+			var margin = {top: 15,
 						  right: 20,
 						  bottom: 20,
 						  left: 40};
@@ -257,13 +257,15 @@
 						//append y axis and adjust for font sizes, ticks, and label
 						svgbar.append("g")
 							.attr("class","axis")
-							.call(yAxis)
+							.call(yAxis);
+							
+						svgbar.append("g")
 							.append("text")
 							.style("font-size",10)
 							.style("text-anchor","middle")
-							.attr("x",-20)
-							.attr("y",heightbar/2)							
-							.attr("transform","rotate(-90 -18 "+(heightbar/2)+")")
+							.attr("dx",-(margin.left/2))
+							.attr("dy",heightbar/2)							
+							.attr("transform","rotate(-90 "+(-(margin.left/2))+" "+(heightbar/2)+")")
 							.text("Degrees greater than baseline temp");
 						
 						//opting to leave out an x axis and simply label with "WARDS", translated appropriately
@@ -284,7 +286,7 @@
 							.style("font-size",11)
 							.style("text-anchor","end")
 							.attr("dx",-7)
-							.attr("dy",10)							
+							.attr("dy",15)							
 							.html("(&deg;C)");
 			
 					});
