@@ -104,10 +104,15 @@
 			var centered;
 			var padding = 25;
 			
+			//initialising the color scale by using the d3 quantize() method on the range set by
+			//the colorbrewer YlOrRd scale and 9 values (or shades)
 			var color = d3.scale
 						  .quantize()
 						  .range(colorbrewer.YlOrRd[9]);
 			
+			//setting a projection around the Oxford area using lon and lat array.
+			//notice scale is huge (190000)
+			//using mercator projection as well
 			var projection = d3.geo.mercator()
 							.center([-1.2375, 51.7551])
 							.scale(190000)
@@ -129,9 +134,12 @@
 			var g = svgmap.append("g");
 					
 			// load and display the Oxford Roads, then Buildings, then Wards (SVG Ordering)
+			// nesting is necessary for the roads, then buildings, then wards polygons to show up consecutively
 			d3.json("OX_roads.geojson", function(error, OXroads) {
 				if(error){console.log(error);}
 				
+				//not all roads are necessary...leaving only major roads determined by data in
+				//GeoJSON file
 				var majorRoads = [];
 				for (var i=0;i<OXroads.features.length;i++){
 					var roadType = OXroads.features[i].properties.FEATCODE;
@@ -139,6 +147,8 @@
 						majorRoads.push(OXroads.features[i].geometry);
 					}
 				}
+				
+				
 				g.append("g")
 				.attr("class","roads")
 				.selectAll("path")
@@ -152,7 +162,8 @@
 				// load and display the Oxford buildings on top of roads
 				d3.json("OX_buildings.geojson", function(error, OXbuildings) {
 					if(error){console.log(error);}
-
+					
+					//drawing buildings based on geometry from GeoJSON path
 					g.append("g")
 					.attr("class","buildings")							
 					.selectAll("path")
@@ -165,16 +176,21 @@
 					  
 					// load and display the layered Oxford Ward Information
 					d3.json("Jun_6_2013_OX_Boroughs.geojson", function(error, OXzones) {
+					
+						//sort the wards from highest urban temp to lowest
 						OXzones.features.sort(function(a,b) {
 							return (b.properties.MEANUrban - a.properties.MEANUrban);
 						})
+						
+						//create an array for determining the colour scale of map/bar graph
 						var meanUrban = [];
 						for(var i=0;i<OXzones.features.length;i++){
 							meanUrban.push(OXzones.features[i].properties.MEANUrban);
 						}						
-						//apply color function to the domain of mean temp data
+						//apply color function to the domain of mean urban temp data
 						color.domain([d3.min(meanUrban),d3.max(meanUrban)]);						  
 
+						//draw the shapes, give them a title, and add some mouseover functionality
 						g.append("g")
 						.attr("class","wards")								
 						.selectAll("path")
@@ -192,24 +208,31 @@
 						  .attr("fill",function(d){return color(d.properties.MEANUrban);})
 						  .on("mouseover", function(d){console.log(d.properties.NAME);})
 						  .on("click", clicked);
-						  
+						 
+						//create the y scale to be linear and to have 0 values at the bottom (height)
 						var yScale = d3.scale.linear()
 									   .domain([0,d3.max(meanUrban)])
 									   .range([heightbar,0]);
-									   
+						
+						//create the x scale to be linear from 0 to 24 (24 wards plus some extra space)
 						var xScale = d3.scale.linear()
 									   .domain([0,24])
 									   .range([0,widthbar]);
 						
+						//create the y-axis based on the y scale and orient left
 						var yAxis = d3.svg.axis()
 									  .scale(yScale)
-									  .orient("left");
-									  
+									  .orient("left")
+									  .ticks(15, "&#176");
+						
+						//create the x-axis based on the x scale and orient bottom
 						var xAxis = d3.svg.axis()
 									  .scale(xScale)
 									  .orient("bottom")
 									  .ticks(0);
 						
+						//create bars(rects) with the width and heights scaled appropriately, and colours
+						//applied to the colour scale
 						svgbar.selectAll("rect")
 							.data(OXzones.features)
 							.enter()
@@ -220,27 +243,30 @@
 							.attr("height", function(d){return heightbar - yScale(d.properties.MEANUrban);})
 							.attr("fill", function(d){return color(d.properties.MEANUrban);});							
 						
+						//append text to each of the bars and orient them vertically for style
 						svgbar.selectAll("text")
 							.data(OXzones.features)
 							.enter()
 							.append("text")
-							.attr("dx", function(d,i){return xScale(i)+(widthbar)/(OXzones.features.length+1);})
+							.attr("dx", function(d,i){return xScale(i)-3+(widthbar)/(OXzones.features.length+1);})
 							.attr("dy", heightbar-4)
-							.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i)+(widthbar)/(OXzones.features.length+1))+", "+(heightbar-4)+")";})
+							.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i)-3+(widthbar)/(OXzones.features.length+1))+", "+(heightbar-4)+")";})
 							.text(function(d){return d.properties.NAME.slice(0,d.properties.NAME.length-5);})
 							.style("font-size",12);
 						
+						//append y axis and adjust for font sizes, ticks, and label
 						svgbar.append("g")
 							.attr("class","axis")
 							.call(yAxis)
 							.append("text")
 							.style("font-size",10)
 							.style("text-anchor","middle")
-							.attr("x",-28)
+							.attr("dx",-28)
 							.attr("y",heightbar/2)							
 							.attr("transform","rotate(-90 -18 "+(heightbar/2)+")")
 							.text("Degrees greater than baseline temp");
-							
+						
+						//opting to leave out an x axis and simply label with "WARDS", translated appropriately
 						svgbar.append("g")
 							.append("text")
 							.attr("transform","translate(0,"+heightbar+")")
