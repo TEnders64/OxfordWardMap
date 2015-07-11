@@ -237,6 +237,7 @@
 							.data(OXzones.features)
 							.enter()
 							.append("rect")
+							.attr("id",function(d){return d.properties.NAME+"_bar";})
 							.attr("x", function(d,i){return xScale(i);})
 							.attr("y", function(d){return yScale(d.properties.MEANUrban);})
 							.attr("width", function(d,i){return (widthbar)/(OXzones.features.length+1);})
@@ -288,13 +289,22 @@
 							.attr("dx",-7)
 							.attr("dy",15)							
 							.html("(&deg;C)");
+							
+						svgbar.append("g")
+							.append("path")
+							.attr("d","M 0 "+heightbar+" l "+widthbar+);
+							
 			
 					});
 					
 				});
 					
 			});		
-
+			
+			function highlight(id) {
+				
+			}
+			
 			function clicked(d) {
 			  var x, y, k;
 
