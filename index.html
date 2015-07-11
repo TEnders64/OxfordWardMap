@@ -63,7 +63,7 @@
 			width: 75px;
 			height: 30px;
 			padding: 2px;
-			background: blue;
+			background-color: gray;
 			border: 1px;
 			border-radius: 2px;
 			pointer-events: none;
@@ -165,8 +165,7 @@
 					if (roadType === 25735 || roadType === 25729) {
 						majorRoads.push(OXroads.features[i].geometry);
 					}
-				}
-				
+				}				
 				
 				g.append("g")
 				.attr("class","roads")
@@ -228,7 +227,7 @@
 								div.html("Ward: "+d.properties.NAME+"<br/>Mean surface temperature: "+d.properties.MEANTemp
 									+"<br/>Degrees warmer than the coolest Oxford temp: "+d.properties.MEANUrban)
 									.style("left",(d3.event.pageX) + "px")
-									.style("top",(d3.event.pageY - 30) + "px");
+									.style("top",(d3.event.pageY - 50) + "px");
 									})
 						  .on("mouseout", function(d){
 								div.transition()
@@ -319,9 +318,12 @@
 							.html("(&deg;C)");
 							
 						svgbar.append("g")
-							.append("path")
+							.append("line")
 							.attr("class","axis")
-							.attr("d","M 0 "+heightbar+" L "+widthbar+" "+heightbar);
+							.attr("x1",0)
+							.attr("y1",heightbar)
+							.attr("x2",widthbar)
+							.attr("y2",heightbar);
 							
 			
 					});
