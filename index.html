@@ -56,6 +56,19 @@
 			font-family: arial;			
 		}
 		
+		<!--d3noob's tooltips page-->
+		div.tooltip {
+			position: absolute;
+			text-align: left;
+			width: 75px;
+			height: 30px;
+			padding: 2px;
+			background: gray;
+			border: 1px;
+			border-radius: 2px;
+			pointer-events: none;
+		}
+		
 	</style>
 	</head>
 	<body>
@@ -132,7 +145,13 @@
 						.attr("transform", "translate("+margin.left+","+margin.top+")");
 						
 			var g = svgmap.append("g");
-					
+			
+			//declaring a div to the body for the tooltips
+			var div = d3.select("body")
+						.append("div")
+						.attr("class","tooltip")
+						.style("opacity",0);
+						
 			// load and display the Oxford Roads, then Buildings, then Wards (SVG Ordering)
 			// nesting is necessary for the roads, then buildings, then wards polygons to show up consecutively
 			d3.json("OX_roads.geojson", function(error, OXroads) {
@@ -206,7 +225,20 @@
 						  .attr("stroke-width","2")
 						  .attr("opacity","0.75")
 						  .attr("fill",function(d){return color(d.properties.MEANUrban);})
-						  .on("mouseover", function(d){console.log(d.properties.NAME);});
+						  .on("mouseover", function(d){
+								div.transition()
+									.duration(100)
+									.style("opacity", .9);
+								div.text("Mean surface temperature: "+d.properties.MEANTemp
+									+"\nMean relative temperature: "+d.properties.MEANUrban)
+									.style("left",(d3.event.pageX) + "px")
+									.style("top",(d3.event.pageY - 30) + "px");
+									})
+						  .on("mouseout", function(d){
+								div.transition()
+									.duration(400)
+									.style("opacity",0);
+						  });
 						//  .on("click", clicked);
 						 
 						//create the y scale to be linear and to have 0 values at the bottom (height)
