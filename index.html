@@ -222,7 +222,7 @@
 						  .attr("fill",function(d){return color(d.properties.MEANUrban);})
 						  .on("mouseover", function(d){
 								div.transition()
-									.duration(100)
+									.duration(200)
 									.style("opacity", .9);
 								div.html("Ward: "+d.properties.NAME+"<br/>Mean surface temperature: "+d.properties.MEANTemp
 									+"<br/>Degrees warmer than the coolest Oxford temp: "+d.properties.MEANUrban)
@@ -231,7 +231,7 @@
 									})
 						  .on("mouseout", function(d){
 								div.transition()
-									.duration(400)
+									.duration(500)
 									.style("opacity",0);
 						  });
 						//  .on("click", clicked);
@@ -319,7 +319,6 @@
 							
 						svgbar.append("g")
 							.append("line")
-							.attr("class","axis")
 							.attr("x1",0)
 							.attr("y1",heightbar)
 							.attr("x2",widthbar)
