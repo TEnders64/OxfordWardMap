@@ -206,8 +206,8 @@
 						  .attr("stroke-width","2")
 						  .attr("opacity","0.75")
 						  .attr("fill",function(d){return color(d.properties.MEANUrban);})
-						  .on("mouseover", function(d){console.log(d.properties.NAME);})
-						  .on("click", clicked);
+						  .on("mouseover", function(d){console.log(d.properties.NAME);});
+						//  .on("click", clicked);
 						 
 						//create the y scale to be linear and to have 0 values at the bottom (height)
 						var yScale = d3.scale.linear()
@@ -292,6 +292,7 @@
 							
 						svgbar.append("g")
 							.append("path")
+							.attr("class","axis")
 							.attr("d","M 0 "+heightbar+" L "+widthbar+" "+heightbar);
 							
 			
