@@ -144,7 +144,8 @@
 						.html(function(d){return d;});
 			
 			//formatting numbers for display on tooltip
-			var temp = d3.format("2.2g");
+			var surfTemp = d3.format(".4g");
+			var urbanTemp = d3.format(".3g");
 			
 			//initialising the color scale by using the d3 quantize() method on the range set by
 			//the colorbrewer YlOrRd scale and 9 values (or shades)
@@ -252,7 +253,7 @@
 						  .attr("opacity","0.75")
 						  .attr("fill",function(d){return color(d.properties.MEANUrban);})
 						  .on("mouseover", function(d){tip.show(d.properties.NAME+"<br/>Mean Surface Temp (&deg;C): "
-								+temp(d.properties.MEANTemp-272.15)+"<br/>Mean Urban Activity Temp (&deg;C): "+temp(d.properties.MEANUrban))})
+								+surfTemp(d.properties.MEANTemp-272.15)+"<br/>Mean Urban Activity Temp (&deg;C): "+urbanTemp(d.properties.MEANUrban))})
 						  .on("mouseout", tip.hide);
 						//  .html(function(d){return d.properties.NAME+"<br/>Mean Surface Temp: "+d.properties.MEANTemp
 						//				+"<br/>Urban Activity Temp: "+d.properties.MEANUrban;});
