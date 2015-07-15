@@ -57,7 +57,7 @@
 		}
 		
 		.wards path:hover {
-			opacity:1;
+			opacity:0.9;
 		}
 		
 		<!--d3noob's tooltips page-->
@@ -225,20 +225,22 @@
 						  .attr("stroke-width","2")
 						  .attr("opacity","0.75")
 						  .attr("fill",function(d){return color(d.properties.MEANUrban);})
-						  .on("mouseover", function(d){
-								divtool.transition()
-									.duration(200)
-									.style("opacity", 1);
-								divtool.html(d.properties.NAME+"<br/>Mean Surface Temp: "+d.properties.MEANTemp
-									+"<br/>Urban Activity Temp: "+d.properties.MEANUrban)
-									.style("left",(d3.event.pageX + 10) + "px")
-									.style("top",(d3.event.pageY - 75) + "px");
-									})
-						  .on("mouseout", function(d){
-								divtool.transition()
-									.duration(500)
-									.style("opacity",0);
-						  });
+						  .attr("title",function(d){return d.properties.NAME+"<br/>Mean Surface Temp: "+d.properties.MEANTemp
+										+"<br/>Urban Activity Temp: "+d.properties.MEANUrban;});
+						//  .on("mouseover", function(d){
+						//		divtool.transition()
+						//			.duration(200)
+						//			.style("opacity", 1);
+						//		divtool.html(d.properties.NAME+"<br/>Mean Surface Temp: "+d.properties.MEANTemp
+						//			+"<br/>Urban Activity Temp: "+d.properties.MEANUrban)
+						//			.style("left",(d3.event.pageX + 10) + "px")
+						//			.style("top",(d3.event.pageY - 75) + "px");
+						//			})
+						// .on("mouseout", function(d){
+						//		divtool.transition()
+						//			.duration(500)
+						//			.style("opacity",0);
+						//  }); -->
 						//  .on("click", clicked);
 						 
 						//create the y scale to be linear and to have 0 values at the bottom (height)
