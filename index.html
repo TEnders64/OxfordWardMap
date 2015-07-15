@@ -256,7 +256,7 @@
 						  .attr("stroke-width","2")
 						  .attr("opacity","0.75")
 						  .attr("fill",function(d){return color(d.properties.MEANUrban);})
-						  .on("mouseover", function(d){"<span><u>"+tip.show(d.properties.NAME+"</u></span><br/>Mean Surface Temp (&deg;C): 
+						  .on("mouseover", function(d){tip.show("<span><u>"+d.properties.NAME+"</u></span><br/>Mean Surface Temp (&deg;C): 
 								+surfTemp(d.properties.MEANTemp-272.15)+"<br/>Mean Urban Activity Temp (&deg;C): "+urbanTemp(d.properties.MEANUrban))})
 						  .on("mouseout", tip.hide);
 						//  .html(function(d){return d.properties.NAME+"<br/>Mean Surface Temp: "+d.properties.MEANTemp
