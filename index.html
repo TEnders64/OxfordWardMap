@@ -233,7 +233,7 @@
 						  .attr("stroke-width","2")
 						  .attr("opacity","0.75")
 						  .attr("fill",function(d){return color(d.properties.MEANUrban);})
-						  .on("mouseover", function(d){return d.properties.NAME})
+						  .on("mouseover", function(d){return tip.show(d.properties.NAME)})
 						  .on("mouseout", tip.hide);
 						//  .html(function(d){return d.properties.NAME+"<br/>Mean Surface Temp: "+d.properties.MEANTemp
 						//				+"<br/>Urban Activity Temp: "+d.properties.MEANUrban;});
