@@ -57,7 +57,7 @@
 		}
 		
 		.wards path:hover {
-			opacity:0.6;
+			stroke:white;
 		}
 		
 		<!--d3noob's tooltips page-->
@@ -67,10 +67,10 @@
 			width: 60px;
 			height: 30px;
 			padding: 2px;
-			background: gray;
+			background: #C0C0C0;
 			border: 1px;
 			border-radius: 2px;
-			pointer-events: visiblePainted;
+			pointer-events: none;
 		}
 		
 	</style>
@@ -151,7 +151,7 @@
 			var g = svgmap.append("g");
 			
 			//declaring a div to the body for the tooltips
-			var div = d3.select("body")
+			var divtool = d3.select("body")
 						.append("div")
 						.attr("class","tooltip")
 						.style("opacity",0);
@@ -225,16 +225,16 @@
 						  .attr("opacity","0.75")
 						  .attr("fill",function(d){return color(d.properties.MEANUrban);})
 						  .on("mouseover", function(d){
-								div.transition()
+								divtool.transition()
 									.duration(200)
 									.style("opacity", 1);
-								div.html(d.properties.NAME+"<br/>Mean Surface Temp: "+d.properties.MEANTemp
+								divtool.html(d.properties.NAME+"<br/>Mean Surface Temp: "+d.properties.MEANTemp
 									+"<br/>Urban Activity Temp: "+d.properties.MEANUrban)
 									.style("left",(d3.event.pageX + 10) + "px")
 									.style("top",(d3.event.pageY - 75) + "px");
 									})
 						  .on("mouseout", function(d){
-								div.transition()
+								divtool.transition()
 									.duration(500)
 									.style("opacity",0);
 						  });
