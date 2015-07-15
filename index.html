@@ -82,7 +82,7 @@
 			font-family: sans-serif;
 			width: 200px;
 			height: 50px;
-			opacity: 0.9;
+			opacity: 0.8;
 			padding: 2px;
 			border: 1px;
 			border-radius: 4px;
@@ -116,7 +116,7 @@
 					</div>
 					<div class="short-div">
 						<div class="panel panel-success">
-							<div class="panel-heading">Oxford Wards Comparison - Degrees (&deg;C) warmer than coolest temp in Oxford</div>
+							<div class="panel-heading">Urban Temp Comparison (based upon (&deg;C) warmer than coolest temp in Oxford)</div>
 							<div id="bar" class="panel-body"></div>
 						</div>
 					</div>
@@ -141,6 +141,9 @@
 			var tip = d3.tip()
 						.attr("class","d3-tip")
 						.html(function(d){return d;});
+			
+			//formatting numbers for display on tooltip
+			var temp = d3.format(".2g");
 			
 			//initialising the color scale by using the d3 quantize() method on the range set by
 			//the colorbrewer YlOrRd scale and 9 values (or shades)
@@ -247,8 +250,8 @@
 						  .attr("stroke-width","2")
 						  .attr("opacity","0.75")
 						  .attr("fill",function(d){return color(d.properties.MEANUrban);})
-						  .on("mouseover", function(d){tip.show(d.properties.NAME+"<br/>Mean Surface Temp: "
-								+d.properties.MEANTemp+"<br/>Mean Urban Activity Temp: "+d.properties.MEANUrban)})
+						  .on("mouseover", function(d){tip.show(d.properties.NAME+"<br/>Mean Surface Temp (&deg;C): "
+								+temp(d.properties.MEANTemp-272.15)+"<br/>Mean Urban Activity Temp (&deg;C): "+temp(d.properties.MEANUrban))})
 						  .on("mouseout", tip.hide);
 						//  .html(function(d){return d.properties.NAME+"<br/>Mean Surface Temp: "+d.properties.MEANTemp
 						//				+"<br/>Urban Activity Temp: "+d.properties.MEANUrban;});
