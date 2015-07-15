@@ -97,6 +97,10 @@
 			font-size: 11px;
 		}
 		
+		rect:hover {
+			stroke:white;
+		}
+		
 	</style>
 	</head>
 	<body>
@@ -259,8 +263,8 @@
 						  .attr("stroke-width","2")
 						  .attr("opacity","0.75")
 						  .attr("fill",function(d){return color(d.properties.MEANUrban);})
-						  .on("mouseover", function(d){tip.show("<span><u>"+d.properties.NAME+"</u></span><br/>Mean Surface Temp (&deg;C): "
-								+surfTemp(d.properties.MEANTemp-272.15)+"<br/>Mean Urban Activity Temp (&deg;C): "+urbanTemp(d.properties.MEANUrban))})
+						  .on("mouseover", function(d){tip.show("<span><u>"+d.properties.NAME+"</u><br/>Mean Surface Temp (&deg;C): "
+								+surfTemp(d.properties.MEANTemp-272.15)+"<br/>Mean Urban Activity Temp (&deg;C): "+urbanTemp(d.properties.MEANUrban)+"</span>")})
 						  .on("mouseout", tip.hide);
 						//  .html(function(d){return d.properties.NAME+"<br/>Mean Surface Temp: "+d.properties.MEANTemp
 						//				+"<br/>Urban Activity Temp: "+d.properties.MEANUrban;});
@@ -313,7 +317,9 @@
 							.attr("y", function(d){return yScale(d.properties.MEANUrban);})
 							.attr("width", function(d,i){return (widthbar)/(OXzones.features.length+1);})
 							.attr("height", function(d){return heightbar - yScale(d.properties.MEANUrban);})
-							.attr("fill", function(d){return color(d.properties.MEANUrban);});							
+							.attr("fill", function(d){return color(d.properties.MEANUrban);})
+							.on("mouseover", function(d){tip.show(meanUrban(d.properties.MEANUrban))})
+							.on("mouseout", tip.hide);							
 						
 						//append text to each of the bars and orient them vertically for style
 						svgbar.selectAll("text")
