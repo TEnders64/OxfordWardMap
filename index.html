@@ -306,7 +306,6 @@
 					
 					//removal of currently visible layers and histogram
 					$('.wards').remove();
-					//$('#bar').remove();
 					$('.wardlabels').remove();
 					$('.wardbars').remove();
 					$('.axis').remove();
@@ -448,7 +447,8 @@
 						.attr("x1",0)
 						.attr("y1",heightbar)
 						.attr("x2",widthbar)
-						.attr("y2",heightbar);							
+						.attr("y2",heightbar)
+						.attr("style","stroke: #000000; stroke-width:1");							
 								
 				});
 				
