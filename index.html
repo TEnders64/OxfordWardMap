@@ -134,7 +134,15 @@
 					<div class="short-div">
 						<div class="panel panel-info">
 							<div class="panel-heading">View Data From Other Dates:</div>
-							<div id="dates" class="panel-body"></div>
+							<div id="dates" class="panel-body">
+								<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">2013
+								<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li id="2013_Jun_6">June 6th</li>
+									<li id="2013_Jul_8">July 8th</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 					<div class="short-div">
@@ -341,6 +349,7 @@
 							.data(OXzones.features)
 							.enter()
 							.append("text")
+							.attr("class","wardlabels")
 							.attr("dx", function(d,i){return xScale(i)-3+(widthbar)/(OXzones.features.length+1);})
 							.attr("dy", heightbar-4)
 							.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i)-3+(widthbar)/(OXzones.features.length+1))+", "+(heightbar-4)+")";})
