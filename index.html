@@ -40,7 +40,8 @@
 		}
 		
 		.axis path,
-		.axis line {
+		.axis line,
+		 xAxisLine {
 			fill: none;
 			stroke: black;
 			shape-rendering: crispEdges;
@@ -50,7 +51,7 @@
 			font-family: sans-serif;
 			font-size: 11px;
 		}
-		
+			
 		text {
 			fill: black;
 			font-weight: bold;
@@ -328,7 +329,7 @@
 					  .append("path")
 					  .attr("d", path)
 					  .attr("stroke","black")
-					  .attr("stroke-width","2")
+					  .attr("stroke-width","1")
 					  .attr("opacity","0.75")
 					  .attr("fill",function(d){return color(d.properties.MEANUrban);})
 					  .on("mouseover", function(d){tip.show("<span><u>"+d.properties.NAME+"</u><br/>Mean Surface Temp (&deg;C): "
@@ -429,7 +430,7 @@
 						
 					svgbar.append("g")
 						.append("line")
-						.attr("class","axis")
+						.attr("class","xAxisLine")
 						.attr("x1",0)
 						.attr("y1",heightbar)
 						.attr("x2",widthbar)
@@ -446,7 +447,7 @@
 				var centroid = path.centroid(d);
 				x = centroid[0];
 				y = centroid[1];
-				k = 3;
+				k = 2.5;
 				centered = d;
 			  } else {
 				x = width / 2;
