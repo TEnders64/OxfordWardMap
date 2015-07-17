@@ -89,6 +89,11 @@
 			pointer-events: none;
 		}
 		
+		.barTip {
+			width: 30px;
+			height: 15px;
+		}
+		
 		.d3-tip span, 
 		.barTip span {
 			position: absolute;
@@ -324,7 +329,7 @@
 							.attr("width", function(d,i){return (widthbar)/(OXzones.features.length+1);})
 							.attr("height", function(d){return heightbar - yScale(d.properties.MEANUrban);})
 							.attr("fill", function(d){return color(d.properties.MEANUrban);})
-							.on("mouseover", function(d){barTip.show("<span>"+d.properties.NAME.slice(0,d.properties.NAME.length-5)+"<br/>"+urbanTemp(d.properties.MEANUrban)+"</span>")})
+							.on("mouseover", function(d){barTip.show("<span>"+urbanTemp(d.properties.MEANUrban)+"</span>")})
 							.on("mouseout", barTip.hide);							
 						
 						//append text to each of the bars and orient them vertically for style
