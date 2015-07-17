@@ -120,7 +120,7 @@
 		}
 		
 		a:hover{
-			color: blue;
+			color: #0000FF;
 			font-weight: bold;
 		}
 		
@@ -200,6 +200,7 @@
 			var heightbar = 350 - margin.top - margin.bottom;
 			var barpad = 1;
 			var centered;
+			var date = "Jun_6_2013_OX_Boroughs.geojson";
 			
 			//Justin Palmer (labratrevenge.com) d3 tool tip add-on
 			var tip = d3.tip()
@@ -291,8 +292,10 @@
 					  .attr("stroke","transparent")
 					  .attr("fill","black");
 					  
+					  
+					function change(date){
 					// load and display the layered Oxford Ward Information
-					d3.json("Jun_6_2013_OX_Boroughs.geojson", function(error, OXzones) {
+					d3.json(date, function(error, OXzones) {
 					
 						//sort the wards from highest urban temp to lowest
 						OXzones.features.sort(function(a,b) {
@@ -434,14 +437,18 @@
 			
 					});
 					
+					}; //end of change() function
+					
 				});
 					
 			});		
 			
-			function newdate(id) {
-				var date = id+"_OX_Boroughs.geojson";
-				console.log(date);
-			}
+			$(document).ready(function() {
+				$("li").click(function(){
+					date = $(this).attr("id")+"_OX_Boroughs.geojson";
+					change(date);
+				});
+			});
 			
 			function clicked(d) {
 			  var x, y, k;
