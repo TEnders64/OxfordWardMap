@@ -62,20 +62,6 @@
 			opacity:0.9;
 		}
 		
-		<!--d3noob's tooltips page
-		div.tooltip {
-			position: absolute;
-			visibility: visible;
-			text-align: left;
-			width: 60px;
-			height: 30px;
-			padding: 2px;
-			background: #E6E6E6;
-			border: 1px;
-			border-radius: 2px;
-			pointer-events: none;
-		}-->
-		
 		.d3-tip {
 			background: #CAEBFB;
 			font-size: 10px;
@@ -443,12 +429,11 @@
 						
 					svgbar.append("g")
 						.append("line")
-						.attr("class","xAxisLine")
+						.attr("class","axis")
 						.attr("x1",0)
 						.attr("y1",heightbar)
 						.attr("x2",widthbar)
-						.attr("y2",heightbar)
-						.attr("style","stroke: #000000; stroke-width:1");							
+						.attr("y2",heightbar);							
 								
 				});
 				
@@ -461,7 +446,7 @@
 				var centroid = path.centroid(d);
 				x = centroid[0];
 				y = centroid[1];
-				k = 2;
+				k = 3;
 				centered = d;
 			  } else {
 				x = width / 2;
