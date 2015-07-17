@@ -307,6 +307,10 @@
 			});
 			
 			function showWards(date){
+					$('.wards').hide();
+					$('.wardlabels').hide();
+					$('.wardbars').hide();
+			
 					// load and display the layered Oxford Ward Information
 					d3.json(date, function(error, OXzones) {
 					
@@ -384,6 +388,7 @@
 							.data(OXzones.features)
 							.enter()
 							.append("rect")
+							.attr("class","wardbars")
 							.attr("id",function(d){return d.properties.NAME+"_bar";})
 							.attr("x", function(d,i){return xScale(i);})
 							.attr("y", function(d){return yScale(d.properties.MEANUrban);})
