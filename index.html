@@ -276,7 +276,7 @@
 						  .attr("fill",function(d){return color(d.properties.MEANUrban);})
 						  .on("mouseover", function(d){tip.show("<span><u>"+d.properties.NAME+"</u><br/>Mean Surface Temp (&deg;C): "
 								+surfTemp(d.properties.MEANTemp-272.15)+"<br/>Mean Urban Activity Temp (&deg;C): "+urbanTemp(d.properties.MEANUrban)+"</span>")})
-						  .on("mouseout", tip.hide);
+						  .on("mouseout", tip.hide)
 						//  .html(function(d){return d.properties.NAME+"<br/>Mean Surface Temp: "+d.properties.MEANTemp
 						//				+"<br/>Urban Activity Temp: "+d.properties.MEANUrban;});
 						//  .on("mouseover", function(d){
@@ -293,7 +293,7 @@
 						//			.duration(500)
 						//			.style("opacity",0);
 						//  }); -->
-						//  .on("click", clicked);
+						  .on("click", clicked);
 						 
 						//create the y scale to be linear and to have 0 values at the bottom (height)
 						var yScale = d3.scale.linear()
