@@ -306,7 +306,7 @@
 					
 					//removal of currently visible layers and histogram
 					$('.wards').remove();
-					$('#bar').empty();
+					$('#bar').remove();
 					//$('.wardlabels').remove();
 					//$('.wardbars').remove();
 					//$('.axis').remove();
@@ -350,24 +350,7 @@
 							+surfTemp(d.properties.MEANTemp-272.15)+"<br/>Mean Urban Activity Temp (&deg;C): "+urbanTemp(d.properties.MEANUrban)+"</span>")})
 					  .on("mouseout", tip.hide)
 					  .on("click", clicked);
-					//  .html(function(d){return d.properties.NAME+"<br/>Mean Surface Temp: "+d.properties.MEANTemp
-					//				+"<br/>Urban Activity Temp: "+d.properties.MEANUrban;});
-					//  .on("mouseover", function(d){
-					//		divtool.transition()
-					//			.duration(200)
-					//			.style("opacity", 1);
-					//		divtool.html(d.properties.NAME+"<br/>Mean Surface Temp: "+d.properties.MEANTemp
-					//			+"<br/>Urban Activity Temp: "+d.properties.MEANUrban)
-					//			.style("left",(d3.event.pageX + 10) + "px")
-					//			.style("top",(d3.event.pageY - 75) + "px");
-					//			})
-					// .on("mouseout", function(d){
-					//		divtool.transition()
-					//			.duration(500)
-					//			.style("opacity",0);
-					//  }); -->
-					 
-					 
+										 
 					//drawing a histogram
 					//create the y scale to be linear and to have 0 values at the bottom (height)
 					var yScale = d3.scale.linear()
