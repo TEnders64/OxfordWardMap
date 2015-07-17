@@ -305,9 +305,9 @@
 					date = $(this).attr("id")+"_OX_Boroughs.geojson";
 					
 					//removal of currently visible layers and histogram
-					$('.wards').hide();
-					$('.wardlabels').hide();
-					$('.wardbars').hide();
+					$('.wards').remove();
+					$('.wardlabels').remove();
+					$('.wardbars').remove();
 					
 					//repopulate map and histogram with new user-chosen date
 					showWards(date);
