@@ -301,15 +301,21 @@
 			
 			$(document).ready(function() {
 				$("li").click(function(){
+					//update the date variable with the user's choice and some concatenation to access geojson file
 					date = $(this).attr("id")+"_OX_Boroughs.geojson";
+					
+					//removal of currently visible layers and histogram
+					$('.wards').hide();
+					$('.wardlabels').hide();
+					$('.wardbars').hide();
+					
+					//repopulate map and histogram with new user-chosen date
 					showWards(date);
 				});
 			});
 			
 			function showWards(date){
-					$('.wards').hide();
-					$('.wardlabels').hide();
-					$('.wardbars').hide();
+					
 			
 					// load and display the layered Oxford Ward Information
 					d3.json(date, function(error, OXzones) {
@@ -360,6 +366,8 @@
 						//			.style("opacity",0);
 						//  }); -->
 						 
+						 
+						//drawing a histogram
 						//create the y scale to be linear and to have 0 values at the bottom (height)
 						var yScale = d3.scale.linear()
 									   .domain([0,d3.max(meanUrban)])
