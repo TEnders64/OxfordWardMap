@@ -152,9 +152,9 @@
 									<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li id="Jun_6_2013" onclick="newdate(this.id)"><a href="#">June 6th</a></li>
-										<li id="Jul_8_2013" onclick="newdate(this.id)"><a href="#">July 8th</a></li>
-										<li id="Oct_12_2013" onclick="newdate(this.id)"><a href="#">October 12th</a></li>
+										<li id="Jun_6_2013"><a href="#">June 6th</a></li>
+										<li id="Jul_8_2013"><a href="#">July 8th</a></li>
+										<li id="Oct_12_2013"><a href="#">October 12th</a></li>
 									</ul>
 								</div>
 								<div class="btn-group">
@@ -162,7 +162,7 @@
 									<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li id="Feb_1_2014" onclick="newdate(this.id)"><a href="#">February 1st</a></li>
+										<li id="Feb_1_2014"><a href="#">February 1st</a></li>
 									</ul>
 								</div>
 								<div class="btn-group">
@@ -170,10 +170,10 @@
 									<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li id="Jan_19_2015" onclick="newdate(this.id)"><a href="#">January 19th</a></li>
-										<li id="Feb_4_2015" onclick="newdate(this.id)"><a href="#">February 4th</a></li>
-										<li id="Apr_9_2015" onclick="newdate(this.id)"><a href="#">April 9th</a></li>
-										<li id="May_27_2015" onclick="newdate(this.id)"><a href="#">May 27th</a></li>
+										<li id="Jan_19_2015"><a href="#">January 19th</a></li>
+										<li id="Feb_4_2015"><a href="#">February 4th</a></li>
+										<li id="Apr_9_2015"><a href="#">April 9th</a></li>
+										<li id="May_27_2015"><a href="#">May 27th</a></li>
 									</ul>
 								</div>
 							</div>
@@ -293,7 +293,20 @@
 					  .attr("fill","black");
 					  
 					  
-					function change(date){
+					showWards(date);//starting off page with June 6th 2013 data
+					
+				});
+					
+			});		
+			
+			$(document).ready(function() {
+				$("li").click(function(){
+					date = $(this).attr("id")+"_OX_Boroughs.geojson";
+					showWards(date);
+				});
+			});
+			
+			function showWards(date){
 					// load and display the layered Oxford Ward Information
 					d3.json(date, function(error, OXzones) {
 					
@@ -434,21 +447,10 @@
 							.attr("x2",widthbar)
 							.attr("y2",heightbar);
 							
-			
+									
 					});
 					
-					}; //end of change() function
-					
-				});
-					
-			});		
-			
-			$(document).ready(function() {
-				$("li").click(function(){
-					date = $(this).attr("id")+"_OX_Boroughs.geojson";
-					change(date);
-				});
-			});
+					}; //end of showWards() function
 			
 			function clicked(d) {
 			  var x, y, k;
