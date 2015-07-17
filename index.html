@@ -115,7 +115,7 @@
 		.dropdown-menu li {
 			font-family: sans-serif;
 			font-size: 12px;
-			margin: 10px;
+			font-weight: bold;
 			text-align: center;			
 		}
 		
@@ -147,9 +147,9 @@
 									<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li id="2013_Jun_6">Jun 6th</li>
-										<li id="2013_Jul_8">Jul 8th</li>
-										<li id="2013_Oct_12">Oct 12th</li>
+										<li id="Jun_6_2013" onclick="newdate(this.id)">June 6th</li>
+										<li id="Jul_8_2013" onclick="newdate(this.id)">July 8th</li>
+										<li id="Oct_12_2013" onclick="newdate(this.id)">October 12th</li>
 									</ul>
 								</div>
 								<div class="btn-group">
@@ -157,7 +157,7 @@
 									<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li id="2014_Feb_1">Feb 1st</li>
+										<li id="Feb_1_2014">February 1st</li>
 									</ul>
 								</div>
 								<div class="btn-group">
@@ -165,10 +165,10 @@
 									<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li id="2015_Jan_19">Jan 19th</li>
-										<li id="2015_Feb_4">Feb 4th</li>
-										<li id="2015_Apr_9">Apr 9th</li>
-										<li id="2015_May_27">May 27th</li>
+										<li id="Jan_19_2015">January 19th</li>
+										<li id="Feb_4_2015">February 4th</li>
+										<li id="Apr_9_2015">April 9th</li>
+										<li id="May_27_2015">May 27th</li>
 									</ul>
 								</div>
 							</div>
@@ -195,7 +195,6 @@
 			var heightbar = 350 - margin.top - margin.bottom;
 			var barpad = 1;
 			var centered;
-			var padding = 25;
 			
 			//Justin Palmer (labratrevenge.com) d3 tool tip add-on
 			var tip = d3.tip()
@@ -434,8 +433,9 @@
 					
 			});		
 			
-			function highlight(id) {
-				
+			function newdate(id) {
+				var date = id+"_OX_Boroughs.geojson";
+				console.log(date);
 			}
 			
 			function clicked(d) {
@@ -461,11 +461,6 @@
 				  .duration(750)
 				  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
 			}
-			
-			$(function(){
-				$('[data-toggle="popover"]').popover('show');
-				console.log($('[data-toggle="popover"]'));
-			});
 			
 		</script>
 	</body>
