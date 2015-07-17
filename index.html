@@ -341,6 +341,7 @@
 							.data(OXzones.features)
 							.enter()
 							.append("text")
+							.attr("class","wardlabels")
 							.attr("dx", function(d,i){return xScale(i)-3+(widthbar)/(OXzones.features.length+1);})
 							.attr("dy", heightbar-4)
 							.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i)-3+(widthbar)/(OXzones.features.length+1))+", "+(heightbar-4)+")";})
