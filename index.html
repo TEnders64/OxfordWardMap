@@ -126,7 +126,7 @@
 		</div>
 		<div class="container">
 			<div class="row">
-				<div id="target" class="well well-lg col-md-6"><span class="label label-success">DATE</span>
+				<div id="target" class="well well-lg col-md-6"><span id="mapDate" class="label label-success"></span>
 				</div>
 				<div class="col-md-6">
 					<div class="short-div">
@@ -288,7 +288,8 @@
 			$(document).ready(function() {
 				$("li").click(function(){
 					//update the date variable with the user's choice and some concatenation to access geojson file
-					date = $(this).attr("id")+"_OX_Boroughs.geojson";
+					date = $(this).attr("id");
+					newdate = date+"_OX_Boroughs.geojson";
 					
 					//removal of currently visible layers and histogram
 					$('.wards').remove();
@@ -297,14 +298,19 @@
 					$('.axis').remove();
 					
 					//repopulate map and histogram with new user-chosen date
-					showWards(date);
+					showWards(newdate);
+					updateDay(date);
 				});
 			});
 			
-			function showWards(date){					
+			function updateDay(date){
+				$('#mapDate').html(date);
+			}
+			
+			function showWards(newdate){					
 			
 				// load and display the layered Oxford Ward Information
-				d3.json(date, function(error, OXzones) {
+				d3.json(newdate, function(error, OXzones) {
 				
 					//sort the wards from highest urban temp to lowest
 					OXzones.features.sort(function(a,b) {
