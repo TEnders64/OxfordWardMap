@@ -498,10 +498,10 @@
 				.data(everything)
 				.enter()
 				.append("circle")
-				.attr("cx",everything.x)
-				.attr("cy",everything.y)
+				.attr("cx",function(d){return d.x;})
+				.attr("cy",function(d){return d.y;})
 				.attr("r",1)
-				.attr("fill",function(d){return color(d.Temp_Jun_6_2013);});
+				.attr("fill","red");
 				
 			});
 			
