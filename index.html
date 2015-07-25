@@ -498,8 +498,8 @@
 				.data(everything)
 				.enter()
 				.append("circle")
-				.attr("cx",function(d){return d.x;})
-				.attr("cy",function(d){return d.y;})
+				.attr("cx",function(d){return +d.x;})
+				.attr("cy",function(d){return +d.y;})
 				.attr("r",1)
 				.attr("fill","red");
 				
