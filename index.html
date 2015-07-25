@@ -397,7 +397,7 @@
 						.on("mouseout", barTip.hide)
 						.transition()
 						.duration(1000)
-						.attr("height", yScale(0));							
+						.attr("height", yScale(d3.max(meanUrban)));							
 					
 					//append text to each of the bars and orient them vertically for style
 					svgbar.append("g")
