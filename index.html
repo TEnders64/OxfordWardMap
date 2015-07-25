@@ -391,7 +391,7 @@
 						.attr("x", function(d,i){return xScale(i);})
 						.attr("y", function(d){return yScale(d.properties.MEANUrban);})
 						.attr("width", function(d,i){return (widthbar)/(OXzones.features.length+1);})
-						.attr("height", heightbar)
+						.attr("height", 0)
 						.attr("fill", function(d){return color(d.properties.MEANUrban);})
 						.on("mouseover", function(d){barTip.show("<span>"+urbanTemp(d.properties.MEANUrban)+"</span>")})
 						.on("mouseout", barTip.hide)
