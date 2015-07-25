@@ -391,13 +391,13 @@
 						.attr("x", function(d,i){return xScale(i);})
 						.attr("y", function(d){return yScale(d.properties.MEANUrban);})
 						.attr("width", function(d,i){return (widthbar)/(OXzones.features.length+1);})
-						.attr("height", function(d){return heightbar - yScale(d.properties.MEANUrban);})
+						.attr("height", heightbar)
 						.attr("fill", function(d){return color(d.properties.MEANUrban);})
 						.on("mouseover", function(d){barTip.show("<span>"+urbanTemp(d.properties.MEANUrban)+"</span>")})
 						.on("mouseout", barTip.hide)
 						.transition()
 						.duration(1000)
-						.attr("height", yScale(d3.max(meanUrban)));							
+						.attr("height", function(d){return heightbar - yScale(d.properties.MEANUrban);});							
 					
 					//append text to each of the bars and orient them vertically for style
 					svgbar.append("g")
