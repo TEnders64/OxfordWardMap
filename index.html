@@ -184,6 +184,9 @@
 					</div>
 				</div>
 			</div>
+			<div class="row">
+				<div id="test" class="well well-lg"></div>
+			</div>
 		</div>
 		<footer>
 			<p>Contains OS data © Crown copyright [and database right] (2015)</p>
@@ -392,12 +395,9 @@
 						.attr("y", function(d){return yScale(d.properties.MEANUrban);})
 						.attr("width", function(d,i){return (widthbar)/(OXzones.features.length+1);})
 						.attr("height", function(d){return heightbar - yScale(d.properties.MEANUrban);})
-						.attr("fill", "white")
+						.attr("fill", function(d){return color(d.properties.MEANUrban);})
 						.on("mouseover", function(d){barTip.show("<span>"+urbanTemp(d.properties.MEANUrban)+"</span>")})
-						.on("mouseout", barTip.hide)
-						.transition()
-						.delay(500)
-						.attr("fill", function(d){return color(d.properties.MEANUrban);});							
+						.on("mouseout", barTip.hide);			
 					
 					//append text to each of the bars and orient them vertically for style
 					svgbar.append("g")
@@ -486,6 +486,24 @@
 				  .duration(750)
 				  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
 			}
+			
+			//testing something here
+			d3.csv("everyLayer.csv", function(error,everything){
+				console.log(everything);
+				
+				d3.select("#test").append("svg")
+				.attr("width",800)
+				.attr("height",800)
+				.selectAll("circle")
+				.data(everything)
+				.enter()
+				.append("circle")
+				.attr("cx",everything.x)
+				.attr("cy",everything.y)
+				.attr("r",1)
+				.attr("fill",function(d){return color(d.Temp_Jun_6_2013);});
+				
+			});
 			
 		</script>
 	</body>
