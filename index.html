@@ -184,9 +184,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div id="test" class="well well-lg"></div>
-			</div>
 		</div>
 		<footer>
 			<p>Contains OS data © Crown copyright [and database right] (2015)</p>
@@ -204,6 +201,8 @@
 			var barpad = 1;
 			var centered;
 			var date = "Jun_6_2013_OX_Boroughs.geojson";
+			
+			$("li a").attr("href","javascript:void(0)");
 			
 			//Justin Palmer (labratrevenge.com) d3 tool tip add-on
 			var tip = d3.tip()
@@ -293,11 +292,9 @@
 					  .append("path")
 					  .attr("d",path)
 					  .attr("stroke","transparent")
-					  .attr("fill","black");
-					  
+					  .attr("fill","black");					  
 					  
 					showWards(date);//starting off page with June 6th 2013 data
-					
 				});
 					
 			});		
@@ -486,24 +483,6 @@
 				  .duration(750)
 				  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
 			}
-			
-			//testing something here
-			d3.csv("everyLayer.csv", function(error,everything){
-				console.log(everything);
-				
-				d3.select("#test").append("svg")
-				.attr("width",800)
-				.attr("height",800)
-				.selectAll("circle")
-				.data(everything)
-				.enter()
-				.append("circle")
-				.attr("cx",function(d){return +d.X;})
-				.attr("cy",function(d){return +d.Y;})
-				.attr("r",1)
-				.attr("fill","red");
-				
-			});
 			
 		</script>
 	</body>
