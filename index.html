@@ -337,7 +337,7 @@
 						meanUrban.push(OXzones.features[i].properties.MEANUrban);
 					}						
 					//apply color function to the domain of mean urban temp data
-					color.domain([d3.min(meanUrban),d3.max(meanUrban)]);						  
+					color.domain([d3.max(meanUrban),d3.min(meanUrban)]);						  
 
 					//draw the shapes, give them a title, and add some mouseover functionality
 					g.append("g")
