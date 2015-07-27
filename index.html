@@ -11,22 +11,12 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>	
 	<style>
-	
-		.jumbotron h1 {
-			font-size: 18px;
-			font-weight: bold;
-			font-family: "Arial Narrow";
-			color: green
+		.jumbotron p {
+			display: none;
 		}
-			
-		.jumbotron p  {
-			font-size: 14px;
-			font-weight: italic;
-			font-family: "Calibri";
-			color: blue
-		}
-			
-		.active {
+		
+		.active,
+		.wards path:hover	{
 			opacity:0.9
 		}
 		
@@ -40,7 +30,8 @@
 		}
 		
 		.axis path,
-		.axis line {
+		.axis line,
+		.xaxis		{
 			fill: none;
 			stroke: black;
 			shape-rendering: crispEdges;
@@ -56,10 +47,6 @@
 			font-weight: bold;
 			font-family: arial;	
 			pointer-events: none;
-		}
-		
-		.wards path:hover {
-			opacity:0.9;
 		}
 		
 		.d3-tip {
@@ -90,7 +77,7 @@
 			text-align: center;
 			width: 100%;
 			height: 100%;
-			font-size: 11px;
+			font-size: 10px;
 		}
 		
 		rect:hover {
@@ -126,7 +113,7 @@
 	<body>
 		<div class="jumbotron">
 			<div class="container">
-				<h1>Oxford Relative/Surface Temperatures Based On Landsat-8 Imagery</h1>
+				<h1>Oxford Urban/Surface Temperatures Based On Landsat-8 Imagery</h1>
 				<p>The following maps and graphs outline the surface temperatures and relative surface temperatures of the wards of Oxford inside the Ring Road.
 				Images from Landsat-8 have been available since 2013, thanks to NASA and the USGS.  The satellite takes images of Oxford every
 				16 days. With that, there are 22 images a year, and furthermore, only a handful have completely clear conditions (non-cloudy) over Oxford.  
@@ -137,7 +124,7 @@
 		</div>
 		<div class="container">
 			<div class="row">
-				<div id="target" class="well well-lg col-md-6"><h4><span id="mapDate" class="label label-default">Jun_6_2013</span></h4>
+				<div id="target" class="well well-lg col-md-6"><h4><span id="mapDate" class="label label-default">June 6th, 2013</span></h4>
 				</div>
 				<div class="col-md-6">
 					<div class="short-div">
@@ -149,9 +136,9 @@
 									<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li id="Jun_6_2013"><a href="#">June 6th</a></li>
-										<li id="Jul_8_2013"><a href="#">July 8th</a></li>
-										<li id="Oct_12_2013"><a href="#">October 12th</a></li>
+										<li id="MEANJun13U" value="0"><a href="#">June 6th</a></li>
+										<li id="MEANJul13U" value="1"><a href="#">July 8th</a></li>
+										<li id="MEANOct13U" value="2"><a href="#">October 12th</a></li>
 									</ul>
 								</div>
 								<div class="btn-group">
@@ -159,7 +146,7 @@
 									<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li id="Feb_1_2014"><a href="#">February 1st</a></li>
+										<li id="MEANFeb14U" value="3"><a href="#">February 1st</a></li>
 									</ul>
 								</div>
 								<div class="btn-group">
@@ -167,10 +154,10 @@
 									<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li id="Jan_19_2015"><a href="#">January 19th</a></li>
-										<li id="Feb_4_2015"><a href="#">February 4th</a></li>
-										<li id="Apr_9_2015"><a href="#">April 9th</a></li>
-										<li id="May_27_2015"><a href="#">May 27th</a></li>
+										<li id="MEANJan15U" value="4"><a href="#">January 19th</a></li>
+										<li id="MEANFeb15U" value="5"><a href="#">February 4th</a></li>
+										<li id="MEANApr15U" value="6"><a href="#">April 9th</a></li>
+										<li id="MEANMay15U" value="7"><a href="#">May 27th</a></li>
 									</ul>
 								</div>
 							</div>
@@ -183,28 +170,26 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>			
 		</div>
 		<footer>
 			<p>Contains OS data © Crown copyright [and database right] (2015)</p>
 		</footer>
-	<script type="text/javascript">
-		
-			var width = 537;
-			var height = 500;
-			var margin = {top: 15,
-						  right: 20,
-						  bottom: 20,
-						  left: 40};
-			var widthbar = 533 - margin.left - margin.right;
-			var heightbar = 350 - margin.top - margin.bottom;
-			var barpad = 1;
-			var centered;
-			var date = "Jun_6_2013_OX_Boroughs.geojson";
+		<script type="text/javascript">
+			//svg variables: width and height for map...
+			//margin, widthbar and heightbar for the histogram.
+			//setting margins helps with width/height calculations later
+			var width = 537,
+				height = 500,
+				margin = {top: 15, right: 20, bottom: 20, left: 40},
+				widthbar = 533 - margin.left - margin.right,
+				heightbar = 350 - margin.top - margin.bottom;
 			
+			//quick setting of all the <a> elements to have their hrefs not make the page jump
 			$("li a").attr("href","javascript:void(0)");
 			
-			//Justin Palmer (labratrevenge.com) d3 tool tip add-on
+			//Justin Palmer (labratrevenge.com) d3 tool tip add-on initialised
+			//This is helpful for displaying tooltips.  Must be invoked within a given context.
 			var tip = d3.tip()
 						.attr("class","d3-tip")
 						.html(function(d){return d;});
@@ -213,54 +198,67 @@
 						   .attr("class","barTip")
 						   .html(function(d){return d;});
 			
-			//formatting numbers for display on tooltip
+			//formatting numbers for display on tooltips using built-in d3.format operator			
 			var surfTemp = d3.format(".4g");
+			
 			var urbanTemp = d3.format(".3g");
 			
 			//initialising the color scale by using the d3 quantize() method on the range set by
-			//the colorbrewer YlOrRd scale and 9 values (or shades)
+			//the colorbrewer RdYlBu scale and 9 values (or shades)
 			var color = d3.scale
 						  .quantize()
-						  .range(colorbrewer.RdBu[9]);
+						  .range(colorbrewer.RdYlBu[9]);
 			
-			//setting a projection around the Oxford area using lon and lat array.
-			//notice scale is huge (190000)
-			//using mercator projection as well
+			//Setting a projection around the Oxford area using lon and lat array.
+			//Notice scale is huge (190000)
+			//Using mercator projection as well (common projection EPSG: 4326)
 			var projection = d3.geo.mercator()
 							.center([-1.2375, 51.7551])
 							.scale(190000)
 							.translate([width/2, height/2]);
-							
+			
+			//Setting any paths created from here on out with the projection just created
 			var path = d3.geo.path()
 						.projection(projection);
-
+			
+			//Creating a D3 zoom behaviour.  Refers to the zoomed function later in the script
+			var zoom = d3.behavior.zoom()
+						.translate([0, 0])
+						.scale(1)
+						.scaleExtent([1, 8])
+						.on("zoom", zoomed);
+			
+			//Initialising the svg "map" and placing it in the <div id="target"> element...
+			//SVG width and height attributes set using .attr() operator.  This is also the context 
+			//of the first tooltip 'tip'
 			var svgmap = d3.select("#target").append("svg")
 						.attr("width", width)
 						.attr("height", height)
 						.call(tip);
 			
+			//Initialising the svg "histogram" and placing it in the <div id="bar"> element...
+			//SVG width and height are set to the full area of its container. Also append <g> element to start, which
+			//is translated down and to the right so margins are preserved. Context of second tooltip 'barTip' is here.
 			var svgbar = d3.select("#bar").append("svg")
 						.attr("width", widthbar + margin.left + margin.right)
 						.attr("height", heightbar + margin.bottom + margin.top)
 						.append("g")
 						.attr("transform", "translate("+margin.left+","+margin.top+")")
 						.call(barTip);
-						
-			var g = svgmap.append("g");
-						
-			//declaring a div to the body for the tooltips
-			//var divtool = d3.select("body")
-			//			.append("div")
-			//			.attr("class","tooltip")
-			//			.style("opacity",0);
-						
-			// load and display the Oxford Roads, then Buildings, then Wards (SVG Ordering)
-			// nesting is necessary for the roads, then buildings, then wards polygons to show up consecutively
+			
+			//Adding a <g> element to the 'svgmap' and invoking the zoom behaviour on this context.  Any appending to map 
+			//is therefore 'zoomable'
+			var g = svgmap.append("g")
+						.call(zoom);		
+			
+			////////////////////LOADING GEOJSON FILES//////////////////////////////////////////////////////
+			
+			//Loading the roads within the ring road using d3 json() operator
 			d3.json("OX_roads.geojson", function(error, OXroads) {
 				if(error){console.log(error);}
 				
 				//not all roads are necessary...leaving only major roads determined by data in
-				//GeoJSON file
+				//GeoJSON file (i.e. roadType) and storing the geometry features in an array 'majorRoads'
 				var majorRoads = [];
 				for (var i=0;i<OXroads.features.length;i++){
 					var roadType = OXroads.features[i].properties.FEATCODE;
@@ -269,6 +267,12 @@
 					}
 				}				
 				
+				//Adding another grouping element and setting 'roads' as the class for future locating
+				//Drawing the roads based on geometry stored in the 'majorRoads' array.
+				//First use of data() and enter() operators.  SVG path is created for each datum, bound to the next
+				//datum in turn, then since all data is new, enter() operator necessary before actually appending the path
+				//elements.  The attr("d", path) calls upon on the path variable established earlier that uses the projection to 
+				//draw using the "d" SVG Path attribute.
 				g.append("g")
 				.attr("class","roads")
 				.selectAll("path")
@@ -279,11 +283,11 @@
 				  .attr("stroke","black")
 				  .attr("stroke-width","1");
 				  
-				// load and display the Oxford buildings on top of roads
+				// Next, load and display the Oxford buildings on top of roads
 				d3.json("OX_buildings.geojson", function(error, OXbuildings) {
 					if(error){console.log(error);}
 					
-					//drawing buildings based on geometry from GeoJSON path
+					//drawing buildings based on geometry from GeoJSON path similar to operation carried out for roads
 					g.append("g")
 					.attr("class","buildings")							
 					.selectAll("path")
@@ -293,197 +297,193 @@
 					  .attr("d",path)
 					  .attr("stroke","transparent")
 					  .attr("fill","black");					  
-					  
-					showWards(date);//starting off page with June 6th 2013 data
-				});
 					
-			});		
-			
-			$(document).ready(function() {
-				$("li").click(function(){
-					//update the date variable with the user's choice and some concatenation to access geojson file
-					date = $(this).attr("id");
-					newdate = date+"_OX_Boroughs.geojson";
-					
-					//removal of currently visible layers and histogram
-					$('.wards').remove();
-					$('.wardlabels').remove();
-					$('.wardbars').remove();
-					$('.axis').remove();
-					
-					//repopulate map and histogram with new user-chosen date
-					showWards(newdate);
-					updateDay(date);
-				});
-			});
-			
-			function updateDay(date){
-				$('#mapDate').html(date);
-			}
-			
-			function showWards(newdate){					
-			
-				// load and display the layered Oxford Ward Information
-				d3.json(newdate, function(error, OXzones) {
-				
-					//sort the wards from highest urban temp to lowest
-					//OXzones.features.sort(function(a,b) {
-					//	return (b.properties.MEANUrban - a.properties.MEANUrban);
-					//})
-					
-					//create an array for determining the colour scale of map/bar graph
-					var meanUrban = [];
-					for(var i=0;i<OXzones.features.length;i++){
-						meanUrban.push(OXzones.features[i].properties.MEANUrban);
-					}						
-					//apply color function to the domain of mean urban temp data
-					color.domain([d3.max(meanUrban),d3.min(meanUrban)]);						  
-
-					//draw the shapes, give them a title, and add some mouseover functionality
-					g.append("g")
-					.attr("class","wards")								
-					.selectAll("path")
-					.data(OXzones.features)
-					  .enter()
-					  .append("path")
-					  .attr("d", path)
-					  .attr("stroke","black")
-					  .attr("stroke-width","1.5")
-					  .attr("opacity","0.75")
-					  .attr("fill",function(d){return color(d.properties.MEANUrban);})
-					  .on("mouseover", function(d){tip.show("<span><u>"+d.properties.NAME+"</u><br/>Mean Surface Temp (&deg;C): "
-							+surfTemp(d.properties.MEANTemp-272.15)+"<br/>Mean Urban Activity Temp (&deg;C): "+urbanTemp(d.properties.MEANUrban)+"</span>")})
-					  .on("mouseout", tip.hide)
-					  .on("click", clicked);
-										 
-					//drawing a histogram
-					//create the y scale to be linear and to have 0 values at the bottom (height)
-					var yScale = d3.scale.linear()
-								   .domain([0,d3.max(meanUrban)])
-								   .range([heightbar,0]);
-					
-					//create the x scale to be linear from 0 to 24 (24 wards plus some extra space)
-					var xScale = d3.scale.linear()
+					//Next, load the ward polygons and draw them on top of the buildings and roads
+					d3.json("WardMeans.geojson", function(error, Wards) {
+						if(error){console.log(error);}
+						
+						//draw the ward polygons in same fashion as roads and buildings using data(), enter(), append()
+						g.append("g")
+						.attr("class","wards")
+						.selectAll("path")
+						.data(Wards.features)
+						  .enter()
+						  .append("path")
+						  .attr("d",path)
+						  .attr("stroke","black")
+						  .attr("stroke-width","1.5")
+						  .attr("opacity",0.75)
+						  .attr("fill","none")
+						  .attr("id",function(d){return d.properties.NAME;});
+						
+						//Loading a CSV file.  This contains every ward's average surface and urban temperatures per day (8 days in total)
+						d3.csv("WardMeans.csv",	function(error, csv){							
+							
+							//Initialising variables for reference to columns in the CSV.  Needed to save/update data according to user's
+							//choices.  'indexU' and 'indexS' are column names/accessors.  'urbanTemps', 'surfTemps', and 'names' are arrays (containers)
+							//for Urban temps, Surface temps, and Ward names to be stored/updated.  'days' is a pre-determined array that I 
+							//created for reference to the values corresponding to <li value="0"> etc. This array is used for updating the title
+							//of the Ward Map.
+							var indexU = "MEANJun13U",
+								indexS = indexU.slice(0,indexU.length-1)+"S",
+								urbanTemps = [],
+								surfTemps = [],
+								names = [],
+								days = ["June 6th 2013", "July 8th 2013", "October 12th 2013", "February 1st 2014",
+										"January 19th 2015", "February 4th 2015", "April 9th 2015", "May 27th 2015"];
+							
+							//Iteration over each row of data (24 in total for the number of wards) was necessary to pull the information 
+							//from targeted columns corresponding to a day's urban and surface temps.  The d3 csv function returns each row in turn as
+							//an object with column:data as key-value pairs in string format.  'names' is initially populated and never needs updating 
+							//later.  Also (+) operator is needed to coerce the numbers that are strings, back to numbers.
+							for (var i=0; i < 24; i++){
+								var csvObj = csv[i];
+								urbanTemps.push(+csvObj[indexU]);
+								surfTemps.push(+csvObj[indexS]);
+								names.push(csvObj.NAME);
+							}
+							
+							//'color' has an output range with the color scale RdYlBu. It needs a corresponding domain (input values to scale to range)
+							//domain needs a 2D array, in this case it is inverted (max, min) to achieve red colours being greater values, blue lesser
+							color.domain([d3.max(urbanTemps), d3.min(urbanTemps)]);
+							
+							
+							var yScale = d3.scale.linear()
+										.domain([0,d3.max(urbanTemps)])
+										.range([heightbar,0]);
+							
+							var yAxis = d3.svg.axis()
+										.scale(yScale)
+										.orient("left");
+										
+							var xScale = d3.scale.linear()
 								   .domain([0,24])
 								   .range([0,widthbar]);
-					
-					//create the y-axis based on the y scale and orient left
-					var yAxis = d3.svg.axis()
-								  .scale(yScale)
-								  .orient("left")
-								  .ticks(16);
-					
-					//create the x-axis based on the x scale and orient bottom
-					var xAxis = d3.svg.axis()
-								  .scale(xScale)
-								  .orient("bottom")
-								  .ticks(0);
-					
-					//create bars(rects) with the width and heights scaled appropriately, and colours
-					//applied to the colour scale
-					svgbar.append("g")
-						.attr("class","wardbars")
-						.selectAll("rect")
-						.data(OXzones.features)
-						.enter()
-						.append("rect")
-						.attr("id",function(d){return d.properties.NAME+"_bar";})
-						.attr("x", function(d,i){return xScale(i);})
-						.attr("y", function(d){return yScale(d.properties.MEANUrban);})
-						.attr("width", function(d,i){return (widthbar)/(OXzones.features.length+1);})
-						.attr("height", function(d){return heightbar - yScale(d.properties.MEANUrban);})
-						.attr("fill", function(d){return color(d.properties.MEANUrban);})
-						.on("mouseover", function(d){barTip.show("<span>"+urbanTemp(d.properties.MEANUrban)+"</span>")})
-						.on("mouseout", barTip.hide);			
-					
-					//append text to each of the bars and orient them vertically for style
-					svgbar.append("g")
-						.attr("class","wardlabels")
-						.selectAll("text")						
-						.data(OXzones.features)
-						.enter()
-						.append("text")						
-						.attr("dx", function(d,i){return xScale(i)-3+(widthbar)/(OXzones.features.length+1);})
-						.attr("dy", heightbar-4)
-						.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i)-3+(widthbar)/(OXzones.features.length+1))+", "+(heightbar-4)+")";})
-						.text(function(d){return d.properties.NAME.slice(0,d.properties.NAME.length-5);})
-						.style("font-size",12);
-					
-					//append y axis and adjust for font sizes, ticks, and label
-					svgbar.append("g")
-						.attr("class","axis")
-						.call(yAxis);
 						
-					svgbar.append("g")
-						.append("text")
-						.attr("class","yAxisLabel")
-						.style("font-size",10)
-						.style("text-anchor","middle")
-						.attr("dx",-(margin.left/1.5))
-						.attr("dy",heightbar/2)							
-						.attr("transform","rotate(-90 "+(-(margin.left/1.5))+" "+(heightbar/2)+")")
-						.text("Degrees greater than baseline temp");
-					
-					//opting to leave out an x axis and simply label with "WARDS", translated appropriately
-					svgbar.append("g")
-						.append("text")
-						.attr("class","xAxisLabel")
-						.attr("transform","translate(0,"+heightbar+")")
-						.style("font-weight","bold")
-						.style("font-size",16)
-						.style("text-anchor","middle")
-						.attr("dx",widthbar/2)
-						.attr("dy",18)
-						.text("WARDS");
-						
-					svgbar.append("g")
-						.append("text")
-						.attr("class","centigrade")
-						.attr("transform","translate(0,"+heightbar+")")
-						.style("font-weight","bold")
-						.style("font-size",11)
-						.style("text-anchor","end")
-						.attr("dx",-7)
-						.attr("dy",15)							
-						.html("(&deg;C)");
-						
-					svgbar.append("g")
-						.append("line")
-						.attr("class","xAxisLine")
-						.attr("x1",0)
-						.attr("y1",heightbar)
-						.attr("x2",widthbar)
-						.attr("y2",heightbar)
-						.attr("style","stroke:black;shape-rendering:crispEdges");							
+							svgbar.append("g")
+								.attr("class","tempBars")
+								.selectAll("rect")
+								.data(urbanTemps)
+								.enter()
+								.append("rect")
+								.attr("x",function(d,i){return xScale(i);})
+								.attr("y",function(d){return yScale(d);})
+								.attr("width",widthbar/24)
+								.attr("height",function(d){return heightbar - yScale(d);})
+								.attr("fill",function(d){return color(d);})
+								.on("mouseover",function(d){barTip.show("<span>"+urbanTemp(d)+"</span>");})
+								.on("mouseout",barTip.hide);
 								
-				});
+							svgbar.append("g")
+								.attr("class","barlabels")
+								.selectAll("text")
+								.data(names)
+								.enter()
+								.append("text")
+								.attr("dx", function(d,i){return xScale(i)-3+(widthbar)/24;})
+								.attr("dy", heightbar-4)
+								.attr("transform", function(d,i){return "rotate(-90 "+(xScale(i)-3+(widthbar)/24)+", "+(heightbar-4)+")";})
+								.text(function(d){return d.slice(0,d.length-5);})
+								.style("font-size",12);
+							
+							svgmap.selectAll(".wards path")
+								.data(urbanTemps)
+								.attr("fill",function(d){return color(d);});
+								
+							svgmap.selectAll(".wards path")
+								.data(surfTemps)
+								.on("mouseover",function(d,i){tip.show("<span><u>"+names[i]+"</u><br/>Surface Temp: "+(surfTemp(d-272.15))
+																+"(&deg;C)<br/>Urban Temp: "+urbanTemp(urbanTemps[i])+"(&deg;C)</span>");})
+								.on("mouseout",tip.hide);
+								
+							svgbar.append("g")
+								.append("text")
+								.attr("class","xAxisLabel")
+								.attr("transform","translate(0,"+heightbar+")")
+								.style("font-weight","bold")
+								.style("font-size",16)
+								.style("text-anchor","middle")
+								.attr("dx",widthbar/2)
+								.attr("dy",18)
+								.text("WARDS");
+								
+							svgbar.append("g")
+								.attr("class","axis")
+								.call(yAxis);
+										
+							svgbar.append("g")
+								.attr("class","xaxis")
+								.append("line")
+								.attr("x1",0)
+								.attr("y1",heightbar)
+								.attr("x2",widthbar)
+								.attr("y2",heightbar)
+								.text("WARDS");	
+							
+							d3.selectAll("li")
+								.on("click", function() {
+								
+								var mapdate = d3.select("#mapDate"),								
+									dayIndex = (this).value;									
+									
+								mapdate.text(days[dayIndex]);
+								
+								urbanTemps = [];
+								indexU = (this).id;
+								indexS = indexU.slice(0,indexU.length-1)+"S";
+								
+								console.log(indexU);
+								console.log(indexS);
+								
+								for (var i=0; i < 24; i++) {
+									csvObj = csv[i];
+									urbanTemps.push(+csvObj[indexU]);
+									surfTemps.push(+csvObj[indexS]);
+								}
+								
+								color.domain([d3.max(urbanTemps), d3.min(urbanTemps)]);
+								yScale.domain([0,d3.max(urbanTemps)]);
+								yAxis.scale(yScale);
+								
+								svgbar.selectAll("rect")
+									.data(urbanTemps)
+									.transition()
+									.duration(1000)
+									.attr("y",function(d){return yScale(d);})
+									.attr("height",function(d){return heightbar - yScale(d);})
+									.attr("fill",function(d){return color(d);});
+									
+								svgbar.selectAll(".axis")
+									.transition()
+									.duration(1000)
+									.call(yAxis);
+									
+								svgmap.selectAll(".wards path")
+									.data(urbanTemps)
+									.transition()
+									.duration(1000)
+									.attr("fill",function(d){return color(d);});
+									
+								svgmap.selectAll(".wards path")
+									.data(urbanTemps)
+									.on("mouseover",function(d,i){tip.show("<span><u>"+names[i]+"</u><br/>Surface Temp: "+(surfTemp(surfTemps[i]-272.15))
+																+"(&deg;C)<br/>Urban Temp: "+urbanTemp(d)+"(&deg;C)</span>");})
+									.on("mouseout",tip.hide);									
+																	
+								});							
+								
+							}); //end csv
+																								
+						}); //end wards geojson
+						
+					}); //end buildings geojson
+					
+				}); //end roads geojson
 				
-			}; //end of showWards() function
-			
-			function clicked(d) {
-			  var x, y, k;
-
-			  if (d && centered !== d) {
-				var centroid = path.centroid(d);
-				x = centroid[0];
-				y = centroid[1];
-				k = 2.5;
-				centered = d;
-			  } else {
-				x = width / 2;
-				y = height / 2;
-				k = 1;
-				centered = null;
-			  }
-
-			  g.selectAll("path")
-				  .classed("active", centered && function(d) { return d === centered; });
-
-			  g.transition()
-				  .duration(750)
-				  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
-			}
-			
+				function zoomed() {
+				  g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+				}
+				
 		</script>
 	</body>
-</html>
+	</html>
